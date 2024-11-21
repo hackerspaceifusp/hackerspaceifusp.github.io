@@ -2,7 +2,7 @@ name: Update Graph
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # Executa a cada 15 minutos
+    - cron: '*/10 * * * *'  # Executa a cada 10 minutos
   workflow_dispatch:  # Permite execução manual
 
 permissions:
