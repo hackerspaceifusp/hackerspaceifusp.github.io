@@ -1,3 +1,4 @@
+
 # Importa bibliotecas
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -124,7 +125,10 @@ if temp is not None:
     
     quadrado = plt.Rectangle((0.15, 1.03), 0.22, 0.10, transform=fig.transFigure, color=temp_color, lw=0)
     fig.patches.append(quadrado)
-    plt.figtext(0.26, 1.05, f"Temperatura:\n {temp:.1f} °C", fontsize=18, ha='center', color='black')
+    # Definir a cor do texto com base na temperatura
+    text_color = 'white' if (temp >= 32 or temp < 8) else 'black'
+    # Usar o texto com a cor definida
+    plt.figtext(0.26, 1.05, f"Temperatura:\n {temp:.1f} °C", fontsize=18, ha='center', color=text_color)
     plt.figtext(0.26, 1.00, f"Ponto de orvalho: {dew_point:.1f} °C", fontsize=12, ha='center', color='black')
 
     quadrado = plt.Rectangle((0.39, 1.03), 0.22, 0.10, transform=fig.transFigure, color=hum_color, lw=0)
