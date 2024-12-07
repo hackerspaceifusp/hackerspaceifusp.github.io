@@ -1,8 +1,104 @@
 name: Update Graph
 
 on:
-  schedule:
-    - cron: '*/15 * * * *'  # Executa a cada 15 minutos
+  schedule:  # vou testar colocar os horários certos aqui
+    #- cron: '*/15 * * * *'  # Executa a cada 15 minutos
+    - cron: '0 0 * * *'   # 00:00 UTC
+    - cron: '15 0 * * *'  # 00:15 UTC
+    - cron: '30 0 * * *'  # 00:30 UTC
+    - cron: '45 0 * * *'  # 00:45 UTC
+    - cron: '0 1 * * *'   # 01:00 UTC
+    - cron: '15 1 * * *'  # 01:15 UTC
+    - cron: '30 1 * * *'  # 01:30 UTC
+    - cron: '45 1 * * *'  # 01:45 UTC
+    - cron: '0 2 * * *'   # 02:00 UTC
+    - cron: '15 2 * * *'  # 02:15 UTC
+    - cron: '30 2 * * *'  # 02:30 UTC
+    - cron: '45 2 * * *'  # 02:45 UTC
+    - cron: '0 3 * * *'   # 03:00 UTC
+    - cron: '15 3 * * *'  # 03:15 UTC
+    - cron: '30 3 * * *'  # 03:30 UTC
+    - cron: '45 3 * * *'  # 03:45 UTC
+    - cron: '0 4 * * *'   # 04:00 UTC
+    - cron: '15 4 * * *'  # 04:15 UTC
+    - cron: '30 4 * * *'  # 04:30 UTC
+    - cron: '45 4 * * *'  # 04:45 UTC
+    - cron: '0 5 * * *'   # 05:00 UTC
+    - cron: '15 5 * * *'  # 05:15 UTC
+    - cron: '30 5 * * *'  # 05:30 UTC
+    - cron: '45 5 * * *'  # 05:45 UTC
+    - cron: '0 6 * * *'   # 06:00 UTC
+    - cron: '15 6 * * *'  # 06:15 UTC
+    - cron: '30 6 * * *'  # 06:30 UTC
+    - cron: '45 6 * * *'  # 06:45 UTC
+    - cron: '0 7 * * *'   # 07:00 UTC
+    - cron: '15 7 * * *'  # 07:15 UTC
+    - cron: '30 7 * * *'  # 07:30 UTC
+    - cron: '45 7 * * *'  # 07:45 UTC
+    - cron: '0 8 * * *'   # 08:00 UTC
+    - cron: '15 8 * * *'  # 08:15 UTC
+    - cron: '30 8 * * *'  # 08:30 UTC
+    - cron: '45 8 * * *'  # 08:45 UTC
+    - cron: '0 9 * * *'   # 09:00 UTC
+    - cron: '15 9 * * *'  # 09:15 UTC
+    - cron: '30 9 * * *'  # 09:30 UTC
+    - cron: '45 9 * * *'  # 09:45 UTC
+    - cron: '0 10 * * *'  # 10:00 UTC
+    - cron: '15 10 * * *' # 10:15 UTC
+    - cron: '30 10 * * *' # 10:30 UTC
+    - cron: '45 10 * * *' # 10:45 UTC
+    - cron: '0 11 * * *'  # 11:00 UTC
+    - cron: '15 11 * * *' # 11:15 UTC
+    - cron: '30 11 * * *' # 11:30 UTC
+    - cron: '45 11 * * *' # 11:45 UTC
+    - cron: '0 12 * * *'  # 12:00 UTC
+    - cron: '15 12 * * *' # 12:15 UTC
+    - cron: '30 12 * * *' # 12:30 UTC
+    - cron: '45 12 * * *' # 12:45 UTC
+    - cron: '0 13 * * *'  # 13:00 UTC
+    - cron: '15 13 * * *' # 13:15 UTC
+    - cron: '30 13 * * *' # 13:30 UTC
+    - cron: '45 13 * * *' # 13:45 UTC
+    - cron: '0 14 * * *'  # 14:00 UTC
+    - cron: '15 14 * * *' # 14:15 UTC
+    - cron: '30 14 * * *' # 14:30 UTC
+    - cron: '45 14 * * *' # 14:45 UTC
+    - cron: '0 15 * * *'  # 15:00 UTC
+    - cron: '15 15 * * *' # 15:15 UTC
+    - cron: '30 15 * * *' # 15:30 UTC
+    - cron: '45 15 * * *' # 15:45 UTC
+    - cron: '0 16 * * *'  # 16:00 UTC
+    - cron: '15 16 * * *' # 16:15 UTC
+    - cron: '30 16 * * *' # 16:30 UTC
+    - cron: '45 16 * * *' # 16:45 UTC
+    - cron: '0 17 * * *'  # 17:00 UTC
+    - cron: '15 17 * * *' # 17:15 UTC
+    - cron: '30 17 * * *' # 17:30 UTC
+    - cron: '45 17 * * *' # 17:45 UTC
+    - cron: '0 18 * * *'  # 18:00 UTC
+    - cron: '15 18 * * *' # 18:15 UTC
+    - cron: '30 18 * * *' # 18:30 UTC
+    - cron: '45 18 * * *' # 18:45 UTC
+    - cron: '0 19 * * *'  # 19:00 UTC
+    - cron: '15 19 * * *' # 19:15 UTC
+    - cron: '30 19 * * *' # 19:30 UTC
+    - cron: '45 19 * * *' # 19:45 UTC
+    - cron: '0 20 * * *'  # 20:00 UTC
+    - cron: '15 20 * * *' # 20:15 UTC
+    - cron: '30 20 * * *' # 20:30 UTC
+    - cron: '45 20 * * *' # 20:45 UTC
+    - cron: '0 21 * * *'  # 21:00 UTC
+    - cron: '15 21 * * *' # 21:15 UTC
+    - cron: '30 21 * * *' # 21:30 UTC
+    - cron: '45 21 * * *' # 21:45 UTC
+    - cron: '0 22 * * *'  # 22:00 UTC
+    - cron: '15 22 * * *' # 22:15 UTC
+    - cron: '30 22 * * *' # 22:30 UTC
+    - cron: '45 22 * * *' # 22:45 UTC
+    - cron: '0 23 * * *'  # 23:00 UTC
+    - cron: '15 23 * * *' # 23:15 UTC
+    - cron: '30 23 * * *' # 23:30 UTC
+    - cron: '45 23 * * *' # 23:45 UTC
   workflow_dispatch:  # Permite execução manual
 
 permissions:
