@@ -231,8 +231,8 @@ else:
     temp_color = cmap(temp_norm)
     tmax_color = cmap(np.clip((max_temp + 10) / 55, 0, 1))
     tmin_color = cmap(np.clip((min_temp + 10) / 55, 0, 1))
-    hum_color = 0.5
-    pres_color = 0.5
+    hum_color = cmap_hum(0.5)
+    pres_color = cmap_pres(0.5)
 
     hora_atual = f"{timestamp.hour:02d}"
     minuto_atual = f"{timestamp.minute:02d}"
