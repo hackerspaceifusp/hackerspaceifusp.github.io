@@ -226,13 +226,13 @@ else:
     cmap = plt.cm.colors.ListedColormap(col)
     cmap_hum = plt.cm.colors.ListedColormap(plt.cm.coolwarm(np.linspace(1, 0, 100)))
     cmap_pres = plt.cm.colors.ListedColormap(plt.cm.rainbow(np.linspace(1, 0, 100)))
-    temp_norm = 0
+    temp_norm = 0.5
     state_color = 'red' if estadoEstacao == "Offline" else 'green'
     temp_color = cmap(temp_norm)
     tmax_color = cmap(np.clip((max_temp + 10) / 55, 0, 1))
     tmin_color = cmap(np.clip((min_temp + 10) / 55, 0, 1))
-    hum_color = 0
-    pres_color = 0
+    hum_color = 0.5
+    pres_color = 0.5
 
     hora_atual = f"{timestamp.hour:02d}"
     minuto_atual = f"{timestamp.minute:02d}"
@@ -245,7 +245,7 @@ else:
     
     quadrado = plt.Rectangle((0.15, 1.03), 0.22, 0.10, transform=fig.transFigure, color=temp_color, lw=0)
     fig.patches.append(quadrado)
-    text_color = 'white'
+    text_color = 'black'
     # Usar o texto com a cor definida
     plt.figtext(0.26, 1.05, f"Temperatura:\n NaN °C", fontsize=18, ha='center', color=text_color)
     plt.figtext(0.26, 1.00, f"Ponto de orvalho: NaN °C", fontsize=12, ha='center', color='black')
