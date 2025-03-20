@@ -35,7 +35,8 @@ def get_weather_data():
         return temp, humidity, pressure, dew_point, timestamp
     except requests.exceptions.RequestException as e:
         print("Erro na requisição:", e)
-        return None, None, None, None, None
+        timestamp = datetime.now(brasilia_tz)
+        return None, None, None, None, timestamp
     except KeyError as e:
         print("Chave não encontrada nos dados da API:", e)
         return None, None, None, None, None
