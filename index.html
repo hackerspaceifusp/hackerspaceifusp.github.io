@@ -22,43 +22,37 @@
             margin-bottom: 20px;
         }
 
-        /* Contêiner principal para organizar as imagens */
+        /* Estilo para centralizar as imagens horizontalmente */
         .imagens-container {
             display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Alinha as imagens no topo */
-            gap: 40px; /* Espaço entre os blocos de imagens */
-            width: 90%;
-            max-width: 1400px; /* Define um limite para o tamanho */
+            justify-content: center; /* Centraliza o conteúdo horizontalmente */
+            gap: 0px; /* Espaçamento horizontal entre os subcontêineres */
         }
-
-        /* Estilo do bloco esquerdo (graph.png) */
-        .esquerda {
-            flex: 1;
+        
+        .imagens-horizontal {
             display: flex;
-            justify-content: flex-end; /* Alinha à direita dentro do bloco esquerdo */
+            flex-direction: row; /* Imagens 1 e 2 lado a lado */
+            align-items: center; /* Alinha verticalmente as imagens */
+            gap: 0px; /* Espaçamento horizontal entre as imagens */
         }
 
-        /* Estilo do bloco direito (previsão + radar) */
-        .direita {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Alinha à esquerda dentro do bloco direito */
-            gap: 20px; /* Espaço entre as imagens da direita */
+        /* Estilo individual para as imagens */
+        .imagem1 {    /* Essa é para o radar */
+            width: 600px; /* Ajusta automaticamente a largura para manter a proporção */
+            height: auto; /* Define a altura da primeira imagem */
+            display: block;
         }
 
-        /* Ajuste individual das imagens */
-        .imagem1 {
-            width: 1000px;
+        .imagem2 {    /* Essa é para os dados atuais */
+            width: auto; /* Ajusta automaticamente a largura para manter a proporção */
+            height: 800px; /* Define a altura da segunda imagem */
+            display: block;
         }
 
-        .imagem2 {
-            width: 700px;
-        }
-
-        .radar {
-            width: 700px;
+        .imagem3 {    /* Essa é para a previsão */
+            width: auto; /* Ajusta automaticamente a largura para manter a proporção */
+            height: 600px; /* Ajuste a altura conforme necessário */
+            display: block;
         }
 
         /* Reduz o tamanho do texto do Weather Underground */
@@ -103,16 +97,11 @@
 
     <div class="imagens-container">
         <!-- Imagem sozinha à esquerda -->
-        <div class="esquerda">
-            <img src="graph.png" alt="Gráfico do Tempo Atual" class="imagem1">
+        <div class="imagens-horizontal">
+            <img src="radar.png" alt="Radar Atual" class="imagem1">
+            <img src="graph.png" alt="Gráfico do Tempo Atual" class="imagem2">
+            <img src="previsao.png" alt="Previsão do Tempo" class="imagem3">
         </div>
-
-        <!-- Imagens à direita -->
-        <div class="direita">
-            <img src="previsao.png" alt="Previsão do Tempo" class="imagem2">
-            <img src="radar.png" alt="Radar de Chuva" class="radar">
-        </div>
-    </div>
 
     <h2 class="texto-final">
         Essa estação também pode ser visualizada no 
