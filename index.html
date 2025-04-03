@@ -18,37 +18,53 @@
 
         /* Título principal */
         h1 {
-            font-size: 32px; /* Tamanho grande */
-            margin-bottom: 20px; /* Espaço abaixo do título */
+            font-size: 32px;
+            margin-bottom: 20px;
         }
 
-        /* Contêiner para as imagens */
+        /* Contêiner principal para organizar as imagens */
         .imagens-container {
             display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinha as imagens no topo */
+            gap: 40px; /* Espaço entre os blocos de imagens */
+            width: 90%;
+            max-width: 1400px; /* Define um limite para o tamanho */
+        }
+
+        /* Estilo do bloco esquerdo (graph.png) */
+        .esquerda {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end; /* Alinha à direita dentro do bloco esquerdo */
+        }
+
+        /* Estilo do bloco direito (previsão + radar) */
+        .direita {
+            flex: 1;
+            display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 20px; /* Espaçamento entre as imagens */
+            align-items: flex-start; /* Alinha à esquerda dentro do bloco direito */
+            gap: 20px; /* Espaço entre as imagens da direita */
         }
 
-        img {
-            width: 900px; /* Define a largura das imagens */
-            height: auto; /* Mantém a proporção da imagem */
-            display: block;
+        /* Ajuste individual das imagens */
+        .imagem1 {
+            width: 900px;
         }
 
-        /* Ajuste da previsão e do radar */
         .imagem2 {
-            width: 850px; /* Reduz ligeiramente a previsão */
+            width: 850px;
         }
 
         .radar {
-            width: 750px; /* Reduz um pouco mais o radar */
+            width: 750px;
         }
 
         /* Reduz o tamanho do texto do Weather Underground */
         .texto-final {
-            font-size: 14px; /* Texto menor */
-            margin-top: 10px; /* Reduz espaço superior */
+            font-size: 14px;
+            margin-top: 10px;
         }
 
         /* Contêiner para o oferecimento */
@@ -63,15 +79,15 @@
         /* Posicionamento do QR code à direita */
         .qr-code-container {
             position: absolute;
-            right: 200px; /* Distância do lado direito */
+            right: 200px;
             top: -70px;
-            text-align: center; /* Centraliza o texto e imagem no contêiner */
+            text-align: center;
         }
 
         /* Ajuste do tamanho do QR code */
         .qr-code {
-            width: 130px; /* Define a largura do QR code */
-            height: auto; /* Mantém a proporção */
+            width: 130px;
+            height: auto;
             margin-bottom: 5px;
         }
 
@@ -86,9 +102,16 @@
     <h1>Condições meteorológicas atuais e previsão do tempo no IFUSP</h1>
 
     <div class="imagens-container">
-        <img src="graph.png" alt="Gráfico do Tempo Atual" class="imagem1">
-        <img src="previsao.png" alt="Previsão do Tempo" class="imagem2">
-        <img src="radar.png" alt="Radar de Chuva" class="radar">
+        <!-- Imagem sozinha à esquerda -->
+        <div class="esquerda">
+            <img src="graph.png" alt="Gráfico do Tempo Atual" class="imagem1">
+        </div>
+
+        <!-- Imagens à direita -->
+        <div class="direita">
+            <img src="previsao.png" alt="Previsão do Tempo" class="imagem2">
+            <img src="radar.png" alt="Radar de Chuva" class="radar">
+        </div>
     </div>
 
     <h2 class="texto-final">
