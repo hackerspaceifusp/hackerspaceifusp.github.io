@@ -165,7 +165,7 @@ cmap = mcolors.LinearSegmentedColormap.from_list("rain_cmap", list(zip(positions
 norm = mcolors.Normalize(vmin=0, vmax=1)
 
 # Criar a barra de cores discreta
-cbar_ax = fig.add_axes([0.92, 0.3, 0.015, 0.4])  # Mais estreito e menor altura
+cbar_ax = fig.add_axes([0.85, 0.3, 0.015, 0.4])  # Mais estreito e menor altura
 cbar = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cbar_ax)
 
 # Ajustar fonte e espaçamento para um estilo mais discreto
@@ -177,7 +177,7 @@ cbar.outline.set_visible(False)  # Remove a borda para ficar mais clean
 # Mostrar o mapa
 # Ajustar título para ficar no topo
 fig.suptitle("Radar de Chuvas - São Paulo e região", fontsize=16)
-plt.subplots_adjust(top=1.02)  # Reduz o espaço superior
+plt.subplots_adjust(top=0.95)  # Reduz o espaço superior
 
 plt.savefig('radar.png')
 plt.close(fig)
