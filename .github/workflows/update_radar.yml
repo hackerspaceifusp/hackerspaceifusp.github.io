@@ -1,4 +1,4 @@
-name: Previsao
+name: Update_radar
 
 on:
   schedule:
