@@ -64,31 +64,32 @@
         /* Contêiner para o oferecimento */
         .oferecimento-container {
             position: relative;
-            width: 100%;
-            text-align: left;
+            width: 100%; /* Ocupa a largura total do contêiner */
+            text-align: center;
             padding-left: 20px;
-            margin-top: 10px;
+            margin-top: 5px;
+            font-size: 14px;
         }
 
         /* Posicionamento do QR code à direita */
         .qr-code-container {
             position: absolute;
-            right: 200px;
+            right: 200px; /* Distância do lado direito */
             top: -70px;
-            text-align: center;
+            text-align: center; /* Centraliza o texto e imagem no contêiner */
         }
 
         /* Ajuste do tamanho do QR code */
         .qr-code {
-            width: 130px;
-            height: auto;
-            margin-bottom: 5px;
+            width: 100px; /* Define a largura do QR code */
+            height: auto; /* Mantém a proporção */
+            margin-bottom: 5px; /* Aproxima o h3 ao QR code */
         }
 
         /* Remover margens do h3 para ajustá-lo ao QR code */
         .qr-code-container h3 {
             margin: 0;
-            font-size: 14px;
+            font-size: 14px; /* Ajuste opcional do tamanho da fonte */
         }
     </style>
 </head>
