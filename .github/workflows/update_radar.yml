@@ -1,0 +1,43 @@
+name: Previsao
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Executa a cada 15 minutos
+  workflow_dispatch:  # Permite execução manual
+
+permissions:
+  contents: write  # Concede permissão de escrita para o conteúdo do repositório
+  id-token: write  # Adicionado para garantir permissões de token
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        persist-credentials: false  # Não persiste as credenciais padrão
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11.9'  # Especifica o uso do Python 3.11.9
+
+    - name: Install Dependencies
+      run: |
+        pip install numpy requests matplotlib pytz cartopy geopy io PIL
+
+    - name: Run Script
+      run: |
+        python radar.py
+
+    - name: Commit and Push Changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config user.name 'github-actions[bot]'
+        git config user.email 'github-actions[bot]@users.noreply.github.com'
+        git add radar.png
+        git commit -m 'Atualização automática do radar' || echo "Nada para commitar"
+        git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:main
