@@ -80,19 +80,19 @@ for i in range(len(dias)):  ##
     min_temp = temp_min[i]  ##
 
     # Exibe a temperatura máxima
-    ax1.text(i, max_temp + 0.5, f'{max_temp}°C', ha='center', va='bottom', color='red', fontsize=12)  ##
+    ax1.text(i, max_temp + 0.5, f'{max_temp}°C', ha='center', va='bottom', color='red', fontsize=14)  ##
 
     # Verifica se a mínima do dia seguinte (i+1) é invertida, comparando com a mínima parcial do dia atual (i)
     if i > 0 and min_temp < temp_min_parc[i - 1]: ##
-        ax1.text(i, min_temp + 0.5, f'{min_temp}°C*', ha='center', va='bottom', color='blue', fontsize=12)  ##
+        ax1.text(i, min_temp + 0.5, f'{min_temp}°C*', ha='center', va='bottom', color='blue', fontsize=14)  ##
     else: ##
-        ax1.text(i, min_temp + 0.5, f'{min_temp}°C', ha='center', va='bottom', color='blue', fontsize=12) ##
+        ax1.text(i, min_temp + 0.5, f'{min_temp}°C', ha='center', va='bottom', color='blue', fontsize=14) ##
 
 
 # Plot da precipitação
 ax2 = ax1.twinx()
 bars = ax2.bar(dias, precip_volume, alpha=0.3, color='blue', label='Chuva') ##
-ax2.set_ylabel('Volume de precipitação (mm)', color='blue',fontsize=12)
+ax2.set_ylabel('Volume de precipitação (mm)', color='blue',fontsize=14)
 ax2.tick_params(axis='y', labelcolor='blue')
 ax2.set_ylim(0, max(20, 5*np.ceil(1.3*max(precip_volume)/5)))  # Ajusta o limite do eixo Y (mínimo ymax = 20 mm)
 
@@ -109,8 +109,8 @@ ax2.yaxis.set_major_locator(MaxNLocator(num_ticks))
 # Configurações finais do gráfico
 ax1.set_xticks(range(len(dias)))
 ax1.set_xticklabels(dias)
-ax1.set_ylabel('Temperatura (°C)',fontsize=12)
-ax1.set_title('Previsão do tempo para os próximos dias')
+ax1.set_ylabel('Temperatura (°C)',fontsize=14)
+ax1.set_title('Previsão do tempo para os próximos dias',fontsize=16)
 ax1.grid(True, linestyle='--', alpha=0.5)
 ax1.yaxis.set_major_formatter(formatter)
 ax2.yaxis.set_major_formatter(formatter)
