@@ -76,7 +76,7 @@ else:
     raise ValueError("Erro ao baixar a imagem de radar.")
 
 # Criar o mapa com Cartopy
-fig, ax = plt.subplots(figsize=(10, 10), subplot_kw={'projection': ccrs.PlateCarree()})
+fig, ax = plt.subplots(figsize=(10, 8), subplot_kw={'projection': ccrs.PlateCarree()})
 ax.set_extent([LON_CENTRO - delta_lon, LON_CENTRO + delta_lon, LAT_CENTRO - delta_lat, LAT_CENTRO + delta_lat], crs=ccrs.PlateCarree())
 
 # Adicionar camadas geográficas
