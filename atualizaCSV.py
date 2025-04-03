@@ -95,7 +95,7 @@ if temp is not None:
     max_pressure = df['Pressure'].max()
 
     # Configurar subplots
-    fig, axs = plt.subplots(3, 1, figsize=(10, 12), sharex=True)
+    fig, axs = plt.subplots(3, 1, figsize=(10, 10), sharex=True)
     fig.suptitle("Tempo e Extremos nas últimas 24 horas")
 
     # Definir o colormap baseado na temperatura - NÃO ALTERAR O COLORMAP
@@ -171,7 +171,7 @@ if temp is not None:
     # Umidade
     axs[1].plot(df['Timestamp'], df['Humidity'], color='blue', marker='o')
     axs[1].set_ylabel("Umidade relativa (%)",fontsize=14)
-    axs[1].set_ylim([0, 110]) 
+    axs[1].set_ylim([0, 102]) 
     axs[1].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x:.0f}"))
     axs[1].grid(True)
     for label in axs[1].get_yticklabels(): #Tamanho dos rótulos
