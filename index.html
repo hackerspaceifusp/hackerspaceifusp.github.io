@@ -16,10 +16,17 @@
             position: relative;
         }
 
-        /* Estilo para centralizar as imagens horizontalmente */
+        /* Título principal */
+        h1 {
+            font-size: 32px; /* Tamanho grande */
+            margin-bottom: 20px; /* Espaço abaixo do título */
+        }
+
+        /* Contêiner para as imagens */
         .imagens-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 20px; /* Espaçamento entre as imagens */
         }
 
@@ -29,22 +36,25 @@
             display: block;
         }
 
-        /* Adiciona mais espaço entre as imagens e o texto */
-        .texto-final {
-            margin-top: 30px; /* Ajuste este valor conforme necessário */
+        /* Ajuste da previsão e do radar */
+        .imagem2 {
+            width: 850px; /* Reduz ligeiramente a previsão */
         }
 
-        /* Estilo para alinhar o primeiro h2 à esquerda */
-        .texto-final:first-of-type {
-            text-align: left;
-            width: 100%; /* Faz o elemento ocupar toda a largura disponível */
-            padding-left: 20px; /* Opcional: ajuste de espaçamento da borda esquerda */
+        .radar {
+            width: 750px; /* Reduz um pouco mais o radar */
+        }
+
+        /* Reduz o tamanho do texto do Weather Underground */
+        .texto-final {
+            font-size: 14px; /* Texto menor */
+            margin-top: 10px; /* Reduz espaço superior */
         }
 
         /* Contêiner para o oferecimento */
         .oferecimento-container {
             position: relative;
-            width: 100%; /* Ocupa a largura total do contêiner */
+            width: 100%;
             text-align: left;
             padding-left: 20px;
             margin-top: 10px;
@@ -62,23 +72,30 @@
         .qr-code {
             width: 130px; /* Define a largura do QR code */
             height: auto; /* Mantém a proporção */
-            margin-bottom: 5px; /* Aproxima o h3 ao QR code */
+            margin-bottom: 5px;
         }
 
         /* Remover margens do h3 para ajustá-lo ao QR code */
         .qr-code-container h3 {
             margin: 0;
-            font-size: 14px; /* Ajuste opcional do tamanho da fonte */
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
+    <h1>Condições meteorológicas atuais e previsão do tempo no IFUSP</h1>
+
     <div class="imagens-container">
         <img src="graph.png" alt="Gráfico do Tempo Atual" class="imagem1">
         <img src="previsao.png" alt="Previsão do Tempo" class="imagem2">
+        <img src="radar.png" alt="Radar de Chuva" class="radar">
     </div>
-    <h2 class="texto-final">Essa estação também pode ser visualizada no <a href="https://www.wunderground.com/dashboard/pws/ISOPAU314">Weather Underground.</a></h2>
-    
+
+    <h2 class="texto-final">
+        Essa estação também pode ser visualizada no 
+        <a href="https://www.wunderground.com/dashboard/pws/ISOPAU314">Weather Underground.</a>
+    </h2>
+
     <div class="oferecimento-container">
         <h2>Oferecimento: Hackerspace IFUSP e LFA-USP.</h2>
         <div class="qr-code-container">
