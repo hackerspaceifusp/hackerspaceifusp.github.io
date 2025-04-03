@@ -26,7 +26,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install numpy requests matplotlib pytz cartopy geopy io PIL
+        pip install numpy requests matplotlib pytz cartopy geopy Pillow
 
     - name: Run Script
       run: |
