@@ -58,6 +58,10 @@ else:
 # Obter os dados atuais
 temp, humidity, pressure, dew_point, timestamp = get_weather_data()
 
+# Limites do eixo x: de timestamp - 25h até timestamp + 1h
+start_time = timestamp - timedelta(hours=25)
+end_time = timestamp + timedelta(hours=1)
+
 if temp is not None:
     # Verificar se o timestamp já existe no DataFrame
     if timestamp not in df['Timestamp'].values:
@@ -188,6 +192,7 @@ if temp is not None:
     # Formatação do eixo X
     axs[2].xaxis.set_major_formatter(mdates.DateFormatter('%H:%M', tz=brasilia_tz))
     axs[2].xaxis.set_major_locator(mdates.HourLocator(interval=2))
+    axs[2].set_xlim([start_time, end_time])
     for label in axs[2].get_xticklabels():
         label.set_fontsize(14)
     plt.xlabel("Hora local",fontsize=14)
@@ -299,6 +304,7 @@ else:
     # Formatação do eixo X
     axs[2].xaxis.set_major_formatter(mdates.DateFormatter('%H:%M', tz=brasilia_tz))
     axs[2].xaxis.set_major_locator(mdates.HourLocator(interval=2))
+    axs[2].set_xlim([start_time, end_time])
     for label in axs[2].get_xticklabels():
         label.set_fontsize(14)
     plt.xlabel("Hora local",fontsize=14)
