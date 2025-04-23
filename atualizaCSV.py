@@ -226,13 +226,12 @@ else:
     cmap = plt.cm.colors.ListedColormap(col)
     cmap_hum = plt.cm.colors.ListedColormap(plt.cm.coolwarm(np.linspace(1, 0, 100)))
     cmap_pres = plt.cm.colors.ListedColormap(plt.cm.rainbow(np.linspace(1, 0, 100)))
-    temp_norm = 0.5
     state_color = 'red' if estadoEstacao == "Offline" else 'green'
-    temp_color = cmap(temp_norm)
+    temp_color = cmap_hum(0.5)
     tmax_color = cmap(np.clip((max_temp + 10) / 55, 0, 1))
     tmin_color = cmap(np.clip((min_temp + 10) / 55, 0, 1))
     hum_color = cmap_hum(0.5)
-    pres_color = cmap_pres(0.5)
+    pres_color = cmap_hum(0.5)
 
     hora_atual = f"{timestamp.hour:02d}"
     minuto_atual = f"{timestamp.minute:02d}"
