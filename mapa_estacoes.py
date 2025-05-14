@@ -112,6 +112,8 @@ xlim = [gdf.geometry.x.min() - 300, gdf.geometry.x.max() + 150]
 ylim = [gdf.geometry.y.min() - 150, gdf.geometry.y.max() + 200]
 
 sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=2000, edgecolor='k', linewidth=0, norm=norm)
+# Adiciona um ponto invisível na área à esquerda
+ax.plot(gdf.geometry.x.min() - 500, gdf.geometry.y.mean(), alpha=0)
 ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, crs=gdf.crs, reset_extent=False, zoom=17)  # Changed provider
 
 ax.set_xlim(xlim)
