@@ -34,7 +34,7 @@ def get_station_temperature(station_id):
                   
                   # Formatar para o formato desejado
                   hora_formatada = dt_mais5.strftime("%d/%b/%Y %H:%M")  # Ex: 14/Mai/2025 13:47
-              else:
+                else:
                   hora_formatada = np.nan
                 temp = observation.get('metric', {}).get('tempAvg', np.nan)
                 if temp is None or (isinstance(temp, float) and np.isnan(temp)):
