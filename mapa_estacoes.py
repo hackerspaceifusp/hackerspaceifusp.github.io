@@ -15,7 +15,9 @@ brasilia_tz = pytz.timezone("America/Sao_Paulo")
 
 # Função para buscar os dados da API do WU
 def get_station_temperature(station_id):
-    WU_API_KEY = os.getenv('WU_API_KEY') # JAMAIS COMPARTILHAR ESSA API KEY
+    WU_API_KEY = os.getenv('WU_API_KEY')
+    if not WU_API_KEY:
+        raise ValueError("A chave da API não foi encontrada. Defina 'WU_API_KEY' como uma variável de ambiente.")
     url = f"http://api.weather.com/v2/pws/observations/hourly/7day?stationId={station_id}&format=json&units=m&numericPrecision=decimal&apiKey={WU_API_KEY}"
     response = requests.get(url)
     print({url})
