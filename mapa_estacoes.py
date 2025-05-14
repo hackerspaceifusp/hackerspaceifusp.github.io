@@ -110,7 +110,7 @@ norm = Normalize(vmin=-10, vmax=45)  # Definindo os limites do colormap
 sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=1500, edgecolor='k', linewidth=0, norm=norm)
 
 # Adicionando o mapa de fundo
-ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, zoom=19)  # Changed provider
+ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, zoom=18)  # Changed provider
 
 # Adicionando títulos e labels
 # Título com H1 e H2
@@ -118,7 +118,7 @@ if not gdf.empty:
     hora_ref = gdf['Hora'].iloc[0].astimezone(brasilia_tz)
     h1 = hora_ref.hour
     h2 = (h1 + 1) % 24
-    plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Médias entre as {h1:02d} e {h2:02d}h", fontsize=18, ha='center')
+    plt.figtext(0.5, 1.00, f"Temperaturas no IFUSP - Médias entre as {h1:02d} e {h2:02d}h", fontsize=18, ha='center')
 #plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Atualizado em {horas[0]}", fontsize=18, ha='center')
 xlim = [gdf.geometry.x.min() - 80, gdf.geometry.x.max() + 80]
 ylim = [gdf.geometry.y.min() - 80, gdf.geometry.y.max() + 80]
@@ -137,9 +137,9 @@ plt.figtext(0.5, 0.00, f"Atualizado a cada 1 hora", fontsize=10, ha='center')
 for idx, row in gdf.iterrows():
     if not np.isnan(row['Temperatura']):
         if idx in [0]:
-            ax.text(row.geometry.x, row.geometry.y + 2, f"Gramado", color='black', va='center', ha='center', fontsize=10, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y + 3, f"Gramado", color='black', va='center', ha='center', fontsize=10, weight='bold')
         elif idx in [1]:
-            ax.text(row.geometry.x, row.geometry.y - 2, f"Pelletron - topo", color='black', va='center', ha='center', fontsize=10, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y - 3, f"Pelletron - topo", color='black', va='center', ha='center', fontsize=10, weight='bold')
         if (33 <= row['Temperatura'] < 40) or (-5 < row['Temperatura'] <= 5):
             ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='white', ha='center', va='center', fontsize=14, weight='bold')
         else:
