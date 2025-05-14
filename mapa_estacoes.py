@@ -25,23 +25,12 @@ def get_station_temperature(station_id):
             if 'observations' in data and len(data['observations']) > 0:
                 observation = data['observations'][-2]
                 horalocal = observation.get('obsTimeLocal', np.nan)
-                if horalocal is not np.nan:
-                  # Converter para objeto datetime
-                  dt = datetime.strptime(horalocal, "%Y-%m-%d %H:%M:%S")  # Formato típico do WU
-                  
-                  # Somar 5 segundos
-                  dt_mais5 = dt + timedelta(seconds=5)
-                  
-                  # Formatar para o formato desejado
-                  hora_formatada = dt_mais5.strftime("%d/%b/%Y %H:%M")  # Ex: 14/Mai/2025 13:47
-                else:
-                  hora_formatada = np.nan
                 temp = observation.get('metric', {}).get('tempAvg', np.nan)
                 if temp is None or (isinstance(temp, float) and np.isnan(temp)):
                     print(f"Station {station_id} with no data")
-                    return None, None, None, hora_formatada
+                    return None, None, None, horalocal
                 else:
-                    return temp, observation['lat'], observation['lon'], hora_formatada
+                    return temp, observation['lat'], observation['lon'], horalocal
             else:
                 print(f"No observations found for station {station_id}")
                 return None, None, None, None
@@ -63,7 +52,7 @@ longitudes = []
 estacoes = []
 horas = []
 
-hora = datetime.now(brasilia_tz).strftime("%d/%b/%Y %H:%M")
+hora_atual = datetime.now(brasilia_tz).strftime("%d/%b/%Y %H:%M")
 
 # Pega dados das estações suspeitas só se for à noite.
 for station in stations:
