@@ -76,13 +76,19 @@ dados = pd.DataFrame({
     'Hora': horas
 })
 
-# Corrige a posição da estação do gramado
-dados.loc[0, 'Latitude'] = -23.561243
-dados.loc[0, 'Longitude'] = -46.734260
+# Convertendo as horas para datetime e filtrando atualizações da última hora
+dados['Hora'] = pd.to_datetime(dados['Hora'], errors='coerce')
+agora = datetime.now(brasilia_tz)
+limite_inferior = agora - timedelta(hours=1)
+dados = dados[(dados['Hora'] >= limite_inferior) & (dados['Hora'] <= agora)].copy()
 
-# Corrige a posição da estação do Pelletron
-dados.loc[1, 'Latitude'] = -23.561464
-dados.loc[1, 'Longitude'] = -46.735002
+# Corrige a posição da estação do gramado e do Pelletron, se ainda estiverem no DataFrame
+if 'ISOPAU314' in dados['Estacao'].iloc[0]:
+    dados.loc[dados.index[0], 'Latitude'] = -23.561243
+    dados.loc[dados.index[0], 'Longitude'] = -46.734260
+if dados.shape[0] > 1:
+    dados.loc[dados.index[1], 'Latitude'] = -23.561464
+    dados.loc[dados.index[1], 'Longitude'] = -46.735002
 
 # Definir o colormap baseado na temperatura
 c1 = plt.cm.Purples(np.linspace(0, 1, 50))
@@ -101,15 +107,23 @@ gdf = gdf.to_crs(epsg=3857)  # Convertendo para o CRS usado pelo contextily
 
 norm = Normalize(vmin=-10, vmax=45)  # Definindo os limites do colormap
 
-sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=700, edgecolor='k', linewidth=0, norm=norm)
+sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=1500, edgecolor='k', linewidth=0, norm=norm)
 
 # Adicionando o mapa de fundo
 ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, zoom=18)  # Changed provider
 
 # Adicionando títulos e labels
-plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Atualizado em {horas[0]}", fontsize=18, ha='center')
-#ax.set_xlabel('Longitude')
-#ax.set_ylabel('Latitude')
+# Título com H1 e H2
+if not gdf.empty:
+    hora_ref = gdf['Hora'].iloc[0].astimezone(brasilia_tz)
+    h1 = hora_ref.hour
+    h2 = (h1 + 1) % 24
+    plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Médias entre {h1:02d}h e {h2:02d}h", fontsize=18, ha='center')
+#plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Atualizado em {horas[0]}", fontsize=18, ha='center')
+xlim = [gdf.geometry.x.min() - 15, gdf.geometry.x.max() + 15]
+ylim = [gdf.geometry.y.min() - 15, gdf.geometry.y.max() + 15]
+ax.set_xlim(xlim)
+ax.set_ylim(ylim)
 ax.set_xticks([])
 ax.set_yticks([])
 
@@ -123,13 +137,13 @@ plt.figtext(0.5, 0.00, f"Atualizado a cada 1 hora", fontsize=10, ha='center')
 for idx, row in gdf.iterrows():
     if not np.isnan(row['Temperatura']):
         if idx in [0]:
-            ax.text(row.geometry.x, row.geometry.y + 3, f"Gramado", color='black', va='center', ha='center', fontsize=8, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y + 2, f"Gramado", color='black', va='center', ha='center', fontsize=10, weight='bold')
         elif idx in [1]:
-            ax.text(row.geometry.x, row.geometry.y - 3, f"Pelletron - topo", color='black', va='center', ha='center', fontsize=8, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y - 2, f"Pelletron - topo", color='black', va='center', ha='center', fontsize=10, weight='bold')
         if (33 <= row['Temperatura'] < 40) or (-5 < row['Temperatura'] <= 5):
-            ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='white', ha='center', va='center', fontsize=10, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='white', ha='center', va='center', fontsize=14, weight='bold')
         else:
-            ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='black', ha='center', va='center', fontsize=10, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='black', ha='center', va='center', fontsize=14, weight='bold')
 
 # Salvar o gráfico em um arquivo
 plt.tight_layout()
