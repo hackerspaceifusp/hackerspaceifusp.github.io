@@ -120,7 +120,7 @@ if not gdf.empty:
     h2 = (h1 + 1) % 24
     plt.figtext(0.5, 1.00, f"Temperaturas no IFUSP - Médias entre as {h1:02d} e {h2:02d}h", fontsize=18, ha='center')
 #plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Atualizado em {horas[0]}", fontsize=18, ha='center')
-xlim = [gdf.geometry.x.min() - 200, gdf.geometry.x.max() + 80]
+xlim = [gdf.geometry.x.min() - 200, gdf.geometry.x.max() + 100]
 ylim = [gdf.geometry.y.min() - 100, gdf.geometry.y.max() + 150]
 ax.set_xlim(xlim)
 ax.set_ylim(ylim)
