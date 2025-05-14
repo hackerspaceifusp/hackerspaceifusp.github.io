@@ -54,7 +54,7 @@ jobs:
 
     - name: Run Script
       env:
-        API_KEY: ${{ secrets.API_KEY }}
+        WU_API_KEY: ${{ secrets.WU_API_KEY }}
       run: |
         python mapa_estacoes.py
 
