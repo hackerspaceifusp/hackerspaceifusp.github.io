@@ -107,12 +107,13 @@ gdf = gdf.to_crs(epsg=3857)  # Convertendo para o CRS usado pelo contextily
 
 norm = Normalize(vmin=-10, vmax=45)  # Definindo os limites do colormap
 
-sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=2000, edgecolor='k', linewidth=0, norm=norm)
-
-# Adicionando o mapa de fundo
-ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, crs=gdf.crs, reset_extent=False, zoom=17)  # Changed provider
+# Plota os pontos, adiciona o mapa de fundo e corrige os limites dos eixos
 xlim = [gdf.geometry.x.min() - 300, gdf.geometry.x.max() + 150]
 ylim = [gdf.geometry.y.min() - 150, gdf.geometry.y.max() + 200]
+
+sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=2000, edgecolor='k', linewidth=0, norm=norm)
+ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, crs=gdf.crs, reset_extent=False, zoom=17)  # Changed provider
+
 ax.set_xlim(xlim)
 ax.set_ylim(ylim)
 ax.set_xticks([])
