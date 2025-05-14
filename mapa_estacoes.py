@@ -77,7 +77,7 @@ dados = pd.DataFrame({
 })
 
 # Convertendo as horas para datetime e filtrando atualizações da última hora
-dados['Hora'] = pd.to_datetime(dados['Hora'], errors='coerce')
+dados['Hora'] = pd.to_datetime(dados['Hora'], utc=False).dt.tz_localize(None).dt.tz_localize('America/Sao_Paulo')
 agora = datetime.now(brasilia_tz)
 limite_inferior = agora - timedelta(hours=1)
 dados = dados[(dados['Hora'] >= limite_inferior) & (dados['Hora'] <= agora)].copy()
