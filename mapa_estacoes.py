@@ -18,6 +18,8 @@ def get_station_temperature(station_id):
     WU_API_KEY = os.getenv('WU_API_KEY') # JAMAIS COMPARTILHAR ESSA API KEY
     url = f"http://api.weather.com/v2/pws/observations/hourly/7day?stationId={station_id}&format=json&units=m&numericPrecision=decimal&apiKey={WU_API_KEY}"
     response = requests.get(url)
+    print({url})
+    print({response.status_code})
     # Check the status code of the response
     if response.status_code == 200:
         try:
