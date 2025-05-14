@@ -77,12 +77,12 @@ dados = pd.DataFrame({
 })
 
 # Corrige a posição da estação do gramado
-dados['Latitude'][0] = -23.561243
-dados['Longitude'][0] = -46.734260
+dados.loc[0, 'Latitude'] = -23.561243
+dados.loc[0, 'Longitude'] = -46.734260
 
 # Corrige a posição da estação do Pelletron
-dados['Latitude'][1] = -23.561464
-dados['Longitude'][1] = -46.735002
+dados.loc[1, 'Latitude'] = -23.561464
+dados.loc[1, 'Longitude'] = -46.735002
 
 # Definir o colormap baseado na temperatura
 c1 = plt.cm.Purples(np.linspace(0, 1, 50))
