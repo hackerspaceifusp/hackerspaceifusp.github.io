@@ -86,6 +86,9 @@ dados = dados[(dados['Hora'] >= limite_inferior) & (dados['Hora'] <= agora)].cop
 if 'ISOPAU314' in dados['Estacao'].iloc[0]:
     dados.loc[dados.index[0], 'Latitude'] = -23.561243
     dados.loc[dados.index[0], 'Longitude'] = -46.734260
+if 'ISOPAU334' in dados['Estacao'].iloc[0]:
+    dados.loc[dados.index[0], 'Latitude'] = -23.561464
+    dados.loc[dados.index[0], 'Longitude'] = -46.735002
 if dados.shape[0] > 1:
     dados.loc[dados.index[1], 'Latitude'] = -23.561464
     dados.loc[dados.index[1], 'Longitude'] = -46.735002
