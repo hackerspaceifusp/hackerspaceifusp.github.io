@@ -1,137 +1,43 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Gráfico do Tempo - IFUSP</title>
-    <style>
-        /* Definir o estilo do body para centralização */
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            flex-direction: column;
-            text-align: center;
-            position: relative;
-        }
-
-        /* Título principal */
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        /* Estilo para centralizar as imagens horizontalmente */
-        .imagens-container {
-            display: flex;
-            justify-content: center; /* Centraliza o conteúdo horizontalmente */
-            gap: 0px; /* Espaçamento horizontal entre os subcontêineres */
-        }
-
-        .imagens-vertical {
-            display: flex;
-            flex-direction: column; /* Empilha imagens 3 e 4 verticalmente */
-            align-items: center; /* Centraliza as imagens horizontalmente */
-            gap: 0px; /* Espaçamento vertical entre as imagens */
-        }
-        
-        .imagens-horizontal {
-            display: flex;
-            flex-direction: row; /* Imagens 1 e 2 lado a lado */
-            align-items: center; /* Alinha verticalmente as imagens */
-            gap: 0px; /* Espaçamento horizontal entre as imagens */
-        }
-
-        /* Estilo individual para as imagens */
-        .imagem1 {    /* Essa é para o radar */
-            width: 600px; /* Ajusta automaticamente a largura para manter a proporção */
-            height: auto; /* Define a altura da primeira imagem */
-            display: block;
-        }
-
-        .imagem2 {    /* Essa é para os dados atuais */
-            width: auto; /* Ajusta automaticamente a largura para manter a proporção */
-            height: 800px; /* Define a altura da segunda imagem */
-            display: block;
-        }
-
-        .imagem3 {    /* Essa é para a previsão */
-            width: auto; /* Ajusta automaticamente a largura para manter a proporção */
-            height: 600px; /* Ajuste a altura conforme necessário */
-            display: block;
-        }
-
-        /* Reduz o tamanho do texto do Weather Underground */
-        .texto-final {
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        /* Estilo para alinhar o primeiro h2 à esquerda */
-        .texto-final:first-of-type {
-            text-align: center;
-            width: 100%; /* Faz o elemento ocupar toda a largura disponível */
-            padding-left: 20px; /* Opcional: ajuste de espaçamento da borda esquerda */
-            font-size: 14px;
-        }
-
-        /* Contêiner para o oferecimento */
-        .oferecimento-container {
-            position: relative;
-            width: 100%; /* Ocupa a largura total do contêiner */
-            text-align: center;
-            padding-left: 20px;
-            margin-top: 5px;
-            font-size: 14px;
-        }
-
-        /* Posicionamento do QR code à direita */
-        .qr-code-container {
-            position: absolute;
-            right: 200px; /* Distância do lado direito */
-            top: -70px;
-            text-align: center; /* Centraliza o texto e imagem no contêiner */
-        }
-
-        /* Ajuste do tamanho do QR code */
-        .qr-code {
-            width: 100px; /* Define a largura do QR code */
-            height: auto; /* Mantém a proporção */
-            margin-bottom: 5px; /* Aproxima o h3 ao QR code */
-        }
-
-        /* Remover margens do h3 para ajustá-lo ao QR code */
-        .qr-code-container h3 {
-            margin: 0;
-            font-size: 14px; /* Ajuste opcional do tamanho da fonte */
-        }
-    </style>
-</head>
-<body>
-    <h1>Condições meteorológicas atuais e previsão do tempo no IFUSP</h1>
-
-    <div class="imagens-container">
-        <div class="imagens-vertical">
-            <img src="radar.png" alt="Radar Atual" class="imagem1">
-            <img src="mapa.png" alt="Mapa de Estações" class="imagem1">
+<!DOCTYPE html> 
+<html lang="pt"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Estações Meteorológicas do Instituto de Física da USP</title> 
+    <link rel="icon" type="image/x-icon" href="ifusp.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head> 
+<body> 
+    <header>
+        <img src="LogoIFUSP.png" alt="Logo IFUSP" class="logo-ifusp">
+        <h1 style="display: inline-block; margin-left: 16px;"><i class="fas fa-cloud-sun"></i> <i class="fas fa-cloud-showers-heavy"></i> Estações Meteorológicas - Instituto de Física da USP</h1>
+        <div class="social-buttons">
+            <a href="https://www.facebook.com/hackerspaceifusp/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://x.com/hs_cafezinho" target="_blank" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/hackerspace.ifusp/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
-        <div class="imagens-horizontal">
-            <img src="graph.png" alt="Gráfico do Tempo Atual" class="imagem2">
-            <img src="previsao.png" alt="Previsão do Tempo" class="imagem3">
-        </div>
-    </div>
-    <h2 class="texto-final">
-        Essa estação também pode ser visualizada no 
-        <a href="https://www.wunderground.com/dashboard/pws/ISOPAU314">Weather Underground.</a>
-    </h2>
-
-    <div class="oferecimento-container">
-        <h2>Oferecimento: Hackerspace IFUSP e LFA-USP.</h2>
-        <div class="qr-code-container">
-            <img src="qrCodeEstacao.png" alt="QR Code Estação" class="qr-code">
-            <h3>Versão Mobile</h3>
-        </div>
-    </div>
-</body>
-</html>
+    </header> 
+    <main> 
+        <section class="grid-section"> 
+            <div class="grid-item"> 
+                <img src="https://raw.githubusercontent.com/hackerspaceifusp/hackerspaceifusp.github.io/main/graph.png" alt="Gráfico"> 
+            </div> 
+            <div class="grid-item"> 
+                <img src="https://raw.githubusercontent.com/hackerspaceifusp/hackerspaceifusp.github.io/main/mapa.png" alt="Mapa"> 
+            </div> 
+            <div class="grid-item"> 
+                <img src="https://raw.githubusercontent.com/hackerspaceifusp/hackerspaceifusp.github.io/main/previsao.png" alt="Previsão"> 
+            </div> 
+            <div class="grid-item"> 
+                <img src="https://raw.githubusercontent.com/hackerspaceifusp/hackerspaceifusp.github.io/main/radar.png" alt="Radar"> 
+            </div> 
+        </section> 
+    </main> 
+    <footer> 
+        <p>Um projeto realizado por <a href="https://hackerspace.if.usp.br/" target="_blank">HackerSpace-IFUSP</a> e <a href="https://lfa.if.usp.br/" target="_blank">LFA-IFUSP</a> | © 2025</p> 
+        <!-- <p>As estações também podem ser visualizadas no Weather Underground, <br> respectivamente em <a href="https://www.wunderground.com/dashboard/pws/ISOPAU314" target="_blank">Estação 1</a> e <a href="https://www.wunderground.com/dashboard/pws/ISOPAU330" target="_blank">Estação 2</a>.</p>  -->
+    </footer> 
+</body> 
+    </html>
