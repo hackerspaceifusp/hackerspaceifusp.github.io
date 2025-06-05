@@ -99,7 +99,7 @@ if temp is not None:
     max_pressure = df['Pressure'].max()
 
     # Configurar subplots
-    fig, axs = plt.subplots(3, 1, figsize=(13, 10), sharex=True)
+    fig, axs = plt.subplots(3, 1, figsize=(10, 11), sharex=True)
     fig.suptitle("Tempo e Extremos nas últimas 24 horas")
 
     # Definir o colormap baseado na temperatura - NÃO ALTERAR O COLORMAP
@@ -220,7 +220,7 @@ else:
     max_pressure = df['Pressure'].max()
 
     # Configurar subplots
-    fig, axs = plt.subplots(3, 1, figsize=(13, 10), sharex=True)
+    fig, axs = plt.subplots(3, 1, figsize=(10, 11), sharex=True)
     fig.suptitle("Tempo e Extremos nas últimas 24 horas")
 
     # Definir o colormap baseado na temperatura - NÃO ALTERAR O COLORMAP
