@@ -171,6 +171,15 @@ a:hover, a:focus {
     .grid-item:nth-child(4) { grid-area: radar; }
 }
 @media (max-width: 1100px) {
+    body {
+        display: block;
+    }
+    main {
+        display: block;
+        flex: unset;
+        height: auto;
+        min-height: unset;
+    }
     header {
         flex-direction: column;
         align-items: center; /* centraliza horizontalmente */
