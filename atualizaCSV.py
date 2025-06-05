@@ -126,7 +126,7 @@ if temp is not None:
     ano_atual = f"{timestamp.year}"
     fig.text(0.5, 0.99, estadoEstacao, color=state_color, fontsize=16, ha='center')
     # Exibir a temperatura, umidade, P.O. e pressão acima dos plots
-    plt.figtext(0.5, 1.15, f"Condições meteorológicas atuais no IFUSP - Atualizado {dia_atual}/{mes_atual}/{ano_atual} às {hora_atual}:{minuto_atual}", fontsize=14, ha='center', fontweight='bold')
+    plt.figtext(0.5, 1.15, f"Condições meteorológicas atuais no IFUSP - Atualizado {dia_atual}/{mes_atual}/{ano_atual} às {hora_atual}:{minuto_atual}", fontsize=18, ha='center')
     
     quadrado = plt.Rectangle((0.15, 1.03), 0.22, 0.10, transform=fig.transFigure, color=temp_color, lw=0)
     fig.patches.append(quadrado)
