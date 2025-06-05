@@ -12,7 +12,7 @@ from PIL import Image
 import os
 
 # Função para quebrar o texto entre palavras com um limite de largura
-def wrap_text(text, width=12):
+def wrap_text(text, width=13):
     return '\n'.join(textwrap.wrap(text, width=width))
 
 # Define os parâmetros da API
@@ -80,13 +80,13 @@ for i in range(len(dias)):  ##
     min_temp = temp_min[i]  ##
 
     # Exibe a temperatura máxima
-    ax1.text(i, max_temp + 0.5, f'{max_temp}°C', ha='center', va='bottom', color='red', fontsize=14)  ##
+    ax1.text(i, max_temp + 0.5, f'{max_temp}°C', ha='center', va='bottom', color='red', fontsize=16)  ##
 
     # Verifica se a mínima do dia seguinte (i+1) é invertida, comparando com a mínima parcial do dia atual (i)
     if i > 0 and min_temp < temp_min_parc[i - 1]: ##
-        ax1.text(i, min_temp + 0.5, f'{min_temp}°C*', ha='center', va='bottom', color='blue', fontsize=14)  ##
+        ax1.text(i, min_temp + 0.5, f'{min_temp}°C*', ha='center', va='bottom', color='blue', fontsize=16)  ##
     else: ##
-        ax1.text(i, min_temp + 0.5, f'{min_temp}°C', ha='center', va='bottom', color='blue', fontsize=14) ##
+        ax1.text(i, min_temp + 0.5, f'{min_temp}°C', ha='center', va='bottom', color='blue', fontsize=16) ##
 
 
 # Plot da precipitação
@@ -98,8 +98,8 @@ ax2.set_ylim(0, max(20, 5*np.ceil(1.3*max(precip_volume)/5)))  # Ajusta o limite
 
 # Adicionando probabilidade e volume de chuva sobre cada barra
 for i, (bar, prob, vol) in enumerate(zip(bars, precip_prob, precip_volume)):
-    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.08, f'Prob: {prob} %', ha='center', color='blue', fontsize=9, transform=ax2.transData)
-    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=10, transform=ax2.transData)
+    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.08, f'Prob: {prob} %', ha='center', color='blue', fontsize=11, transform=ax2.transData)
+    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=14, transform=ax2.transData)
 
 # Defina o mesmo número de ticks para os dois eixos
 num_ticks = 6  # Pode ajustar conforme necessário
