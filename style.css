@@ -15,7 +15,7 @@ body {
 header {
     background-color: #0F6688;
     color: white;
-    padding: 10px 0 6px 0;
+    padding: 8px 0 8px 0;
     position: sticky;
     top: 0;
     z-index: 200;
@@ -28,6 +28,13 @@ header h1 {
     margin: 0;
     display: inline-block;
     margin-left: 16px;
+}
+.logo-ifusp {
+    height: 34px;
+    width: auto;
+    margin-left: 18px;
+    margin-right: 10px;
+    display: block;
 }
 .social-buttons {
     display: flex;
@@ -51,16 +58,20 @@ main {
     justify-content: center;
     align-items: center;
     width: 100%;
+    min-height: 0;
+    height: 100vh;
 }
 .grid-section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+    gap: 10px 64px;
     width: 100vw;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 32px 0 80px 0;
+    padding: 10px 0 10px 0;
     box-sizing: border-box;
+    height: 100%;
+    min-height: 0;
 }
 .grid-item {
     background-color: white;
@@ -110,18 +121,11 @@ a:visited {
 a:hover, a:focus {
     color: #FFF176;
 }
-.logo-ifusp {
-    height: 44px;
-    width: auto;
-    margin-left: 18px;
-    margin-right: 10px;
-    display: block;
-}
 @media (max-width: 900px) {
     .grid-section {
         max-width: 98vw;
         gap: 16px;
-        padding: 10px 0 70px 0;
+        padding: 10px 0 10px 0;
     }
     .grid-item {
         min-width: 0;
@@ -134,7 +138,7 @@ a:hover, a:focus {
     .grid-section {
         grid-template-columns: 1fr;
         gap: 10px;
-        padding: 10px 3vw 70px 3vw;
+        padding: 10px 3vw 10px 3vw;
         max-width: 100vw;
     }
     .grid-item {
@@ -153,7 +157,7 @@ a:hover, a:focus {
 }
 @media (max-width: 430px) {
     .grid-section {
-        padding: 8px 2vw 70px 2vw;
+        padding: 8px 2vw 10px 2vw;
     }
     .grid-item {
         max-width: 98vw;
