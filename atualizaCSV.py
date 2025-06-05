@@ -136,13 +136,13 @@ if temp is not None:
     plt.figtext(0.26, 1.055, f"Temperatura:\n {temp:.1f} °C", fontsize=20, ha='center', color=text_color)
     plt.figtext(0.26, 1.00, f"Ponto de orvalho: {dew_point:.1f} °C", fontsize=12, ha='center', color='black')
 
-    quadrado = plt.Rectangle((0.39, 1.055), 0.22, 0.10, transform=fig.transFigure, color=hum_color, lw=0)
+    quadrado = plt.Rectangle((0.39, 1.03), 0.22, 0.10, transform=fig.transFigure, color=hum_color, lw=0)
     fig.patches.append(quadrado)
-    plt.figtext(0.50, 1.06, f"Umidade:\n {humidity:.0f} %", fontsize=20, ha='center', color='black')
+    plt.figtext(0.50, 1.055, f"Umidade:\n {humidity:.0f} %", fontsize=20, ha='center', color='black')
 
-    quadrado = plt.Rectangle((0.63, 1.055), 0.22, 0.10, transform=fig.transFigure, color=pres_color, lw=0)
+    quadrado = plt.Rectangle((0.63, 1.03), 0.22, 0.10, transform=fig.transFigure, color=pres_color, lw=0)
     fig.patches.append(quadrado)
-    plt.figtext(0.74, 1.06, f"Pressão:\n {pressure:.1f} hPa", fontsize=20, ha='center', color='black')
+    plt.figtext(0.74, 1.055, f"Pressão:\n {pressure:.1f} hPa", fontsize=20, ha='center', color='black')
 
     
     #plt.figtext(0.5, 1.04, f"Temperatura: {temp:.1f} °C", fontsize=20, ha='center', color=temp_color)
