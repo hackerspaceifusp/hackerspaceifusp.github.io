@@ -150,7 +150,6 @@ ax.text((scale_start[1] + scale_end.longitude) / 2, scale_start[0] - 0.03,
 
 # Adicionar horário no canto inferior direito
 ax.text(LON_CENTRO+delta_lon*0.8, LAT_CENTRO-delta_lat*0.85, timestamp_brasilia, fontsize=10, color='black', ha='right')
-ax.text(LON_CENTRO+delta_lon*0.8, LAT_CENTRO-delta_lat*0.95, "Fonte: RainViewer", fontsize=10, color='black', ha='right')
 ax.scatter(LON_CENTRO, LAT_CENTRO, color='blue', s=70, transform=ccrs.PlateCarree(), label=nome)
 ax.text(LON_CENTRO, LAT_CENTRO - 0.04, "IFUSP", fontsize=12, color='black', transform=ccrs.PlateCarree(), ha='center')
 
@@ -178,6 +177,7 @@ cbar.outline.set_visible(False)  # Remove a borda para ficar mais clean
 # Ajustar título para ficar no topo
 fig.suptitle("Radar de Chuvas - São Paulo e região", fontsize=16)
 ax.text(LON_CENTRO, LAT_CENTRO-delta_lat*1.07, "Atualizado a cada 20 minutos", fontsize=12, color='black', ha='center')
+ax.text(LON_CENTRO, LAT_CENTRO-delta_lat*1.14, "Fonte: RainViewer", fontsize=10, color='black', ha='center')
 plt.subplots_adjust(top=0.95)  # Reduz o espaço superior
 
 plt.savefig('radar.png')
