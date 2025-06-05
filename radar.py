@@ -177,7 +177,7 @@ cbar.outline.set_visible(False)  # Remove a borda para ficar mais clean
 # Mostrar o mapa
 # Ajustar título para ficar no topo
 fig.suptitle("Radar de Chuvas - São Paulo e região", fontsize=16)
-ax.text(LON_CENTRO, LAT_CENTRO-delta_lat*1.05, "Atualizado a cada 20 minutos", fontsize=12, color='black', ha='center')
+ax.text(LON_CENTRO, LAT_CENTRO-delta_lat*1.07, "Atualizado a cada 20 minutos", fontsize=12, color='black', ha='center')
 plt.subplots_adjust(top=0.95)  # Reduz o espaço superior
 
 plt.savefig('radar.png')
