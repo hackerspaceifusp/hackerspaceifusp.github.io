@@ -116,7 +116,7 @@ ylim = [gdf.geometry.y.min() - 150, gdf.geometry.y.max() + 200]
 
 sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=2000, edgecolor='k', linewidth=0, norm=norm)
 # Adiciona um ponto invisível na área à esquerda
-ax.plot(gdf.geometry.x.min() - 500, gdf.geometry.y.mean(), alpha=0)
+ax.plot(gdf.geometry.x.min() - 400, gdf.geometry.y.mean(), alpha=0)
 ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, crs=gdf.crs, reset_extent=False, zoom=17)  # Changed provider
 
 ax.set_xlim(xlim)
@@ -138,7 +138,7 @@ if not gdf.empty:
 #cbar.set_ticks(np.arange(-10, 46, 5))  # Ajustando os ticks do colorbar
 
 # Adicionando textos ao mapa
-plt.figtext(0.5, 0.00, f"Atualizado a cada 1 hora", fontsize=10, ha='center')
+plt.figtext(0.5, 0.00, f"Atualizado a cada 1 hora", fontsize=12, ha='center')
 for idx, row in gdf.iterrows():
     if not np.isnan(row['Temperatura']):
         if idx in [0]:
