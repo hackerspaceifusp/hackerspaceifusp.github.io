@@ -138,7 +138,7 @@ if not gdf.empty:
 #cbar.set_ticks(np.arange(-10, 46, 5))  # Ajustando os ticks do colorbar
 
 # Adicionando textos ao mapa
-plt.figtext(0.5, 0.00, f"Atualizado a cada 1 hora", fontsize=12, ha='center')
+plt.figtext(0.5, -0.01, f"Atualizado a cada 1 hora", fontsize=12, ha='center')
 for idx, row in gdf.iterrows():
     if not np.isnan(row['Temperatura']):
         if idx in [0]:
