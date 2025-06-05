@@ -122,7 +122,7 @@ if temp is not None:
     hora_atual = f"{timestamp.hour:02d}"
     minuto_atual = f"{timestamp.minute:02d}"
     dia_atual = f"{timestamp.day:02d}"
-    mes_atual = f"{timestamp.month}"
+    mes_atual = f"{timestamp.month:02d}"
     ano_atual = f"{timestamp.year}"
     fig.text(0.5, 0.99, estadoEstacao, color=state_color, fontsize=16, ha='center')
     # Exibir a temperatura, umidade, P.O. e pressão acima dos plots
