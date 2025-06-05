@@ -126,23 +126,23 @@ if temp is not None:
     ano_atual = f"{timestamp.year}"
     fig.text(0.5, 0.99, estadoEstacao, color=state_color, fontsize=16, ha='center')
     # Exibir a temperatura, umidade, P.O. e pressão acima dos plots
-    plt.figtext(0.5, 1.15, f"Condições meteorológicas atuais no IFUSP - Atualizado {dia_atual}/{mes_atual}/{ano_atual} às {hora_atual}:{minuto_atual}", fontsize=12, ha='center')
+    plt.figtext(0.5, 1.15, f"Condições meteorológicas atuais no IFUSP - Atualizado {dia_atual}/{mes_atual}/{ano_atual} às {hora_atual}:{minuto_atual}", fontsize=14, ha='center', fontweight='bold')
     
     quadrado = plt.Rectangle((0.15, 1.03), 0.22, 0.10, transform=fig.transFigure, color=temp_color, lw=0)
     fig.patches.append(quadrado)
     # Definir a cor do texto com base na temperatura
     text_color = 'white' if (temp >= 32 or temp < 8) else 'black'
     # Usar o texto com a cor definida
-    plt.figtext(0.26, 1.05, f"Temperatura:\n {temp:.1f} °C", fontsize=18, ha='center', color=text_color)
+    plt.figtext(0.26, 1.06, f"Temperatura:\n {temp:.1f} °C", fontsize=20, ha='center', color=text_color)
     plt.figtext(0.26, 1.00, f"Ponto de orvalho: {dew_point:.1f} °C", fontsize=12, ha='center', color='black')
 
     quadrado = plt.Rectangle((0.39, 1.03), 0.22, 0.10, transform=fig.transFigure, color=hum_color, lw=0)
     fig.patches.append(quadrado)
-    plt.figtext(0.50, 1.05, f"Umidade:\n {humidity:.0f} %", fontsize=18, ha='center', color='black')
+    plt.figtext(0.50, 1.06, f"Umidade:\n {humidity:.0f} %", fontsize=20, ha='center', color='black')
 
     quadrado = plt.Rectangle((0.63, 1.03), 0.22, 0.10, transform=fig.transFigure, color=pres_color, lw=0)
     fig.patches.append(quadrado)
-    plt.figtext(0.74, 1.05, f"Pressão:\n {pressure:.1f} hPa", fontsize=18, ha='center', color='black')
+    plt.figtext(0.74, 1.06, f"Pressão:\n {pressure:.1f} hPa", fontsize=20, ha='center', color='black')
 
     
     #plt.figtext(0.5, 1.04, f"Temperatura: {temp:.1f} °C", fontsize=20, ha='center', color=temp_color)
@@ -152,15 +152,15 @@ if temp is not None:
     
     plt.subplots_adjust(right=0.5)
     # Exibir mínimas e máximas diárias à direita
-    plt.figtext(0.99, 0.83, "Temperatura", fontsize=16)
-    plt.figtext(0.99, 0.80, f"Mínima: {min_temp:.1f} °C", fontsize=12)
-    plt.figtext(0.99, 0.78, f"Máxima: {max_temp:.1f} °C", fontsize=12)
-    plt.figtext(0.99, 0.54, "Umidade", fontsize=16)
-    plt.figtext(0.99, 0.51, f"Mínima: {min_humidity:.0f} %", fontsize=12)
-    plt.figtext(0.99, 0.49, f"Máxima: {max_humidity:.0f} %", fontsize=12)
-    plt.figtext(0.99, 0.26, "Pressão", fontsize=16)
-    plt.figtext(0.99, 0.23, f"Mínima: {min_pressure:.1f} hPa", fontsize=12)
-    plt.figtext(0.99, 0.21, f"Máxima: {max_pressure:.1f} hPa", fontsize=12)
+    plt.figtext(0.99, 0.83, "Temperatura", fontsize=18)
+    plt.figtext(0.99, 0.80, f"Mínima: {min_temp:.1f} °C", fontsize=14)
+    plt.figtext(0.99, 0.78, f"Máxima: {max_temp:.1f} °C", fontsize=14)
+    plt.figtext(0.99, 0.54, "Umidade", fontsize=18)
+    plt.figtext(0.99, 0.51, f"Mínima: {min_humidity:.0f} %", fontsize=14)
+    plt.figtext(0.99, 0.49, f"Máxima: {max_humidity:.0f} %", fontsize=14)
+    plt.figtext(0.99, 0.26, "Pressão", fontsize=18)
+    plt.figtext(0.99, 0.23, f"Mínima: {min_pressure:.1f} hPa", fontsize=14)
+    plt.figtext(0.99, 0.21, f"Máxima: {max_pressure:.1f} hPa", fontsize=14)
 
     # Temperatura
     axs[0].plot(df['Timestamp'], df['Temperature'], label="Temperatura", color='red', marker='o')
