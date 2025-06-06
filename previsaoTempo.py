@@ -92,7 +92,7 @@ for i in range(len(dias)):  ##
 # Plot da precipitação
 ax2 = ax1.twinx()
 bars = ax2.bar(dias, precip_volume, alpha=0.3, color='blue', label='Chuva') ##
-ax2.set_ylabel('Volume de precipitação (mm)', color='blue',fontsize=14)
+ax2.set_ylabel('Precipitação (mm)', color='blue',fontsize=18)
 ax2.tick_params(axis='y', labelcolor='blue')
 ax2.set_ylim(0, max(20, 5*np.ceil(1.3*max(precip_volume)/5)))  # Ajusta o limite do eixo Y (mínimo ymax = 20 mm)
 
@@ -109,7 +109,7 @@ ax2.yaxis.set_major_locator(MaxNLocator(num_ticks))
 # Configurações finais do gráfico
 ax1.set_xticks(range(len(dias)))
 ax1.set_xticklabels(dias)
-ax1.set_ylabel('Temperatura (°C)',fontsize=14)
+ax1.set_ylabel('Temperatura (°C)',fontsize=18)
 ax1.set_title('Previsão do tempo para os próximos dias',fontsize=16)
 ax1.grid(True, linestyle='--', alpha=0.5)
 ax1.yaxis.set_major_formatter(formatter)
@@ -154,8 +154,8 @@ for i, (dia, cond) in enumerate(zip(dias, narrativas)):
     ax2.text(i, ax2.get_ylim()[1] * -0.27, cond_wrapped, ha='center', va='center', fontsize=10, color='black', transform=ax2.transData)
 
 # Adicionando o texto "Fonte: Weather Channel" abaixo do gráfico
-plt.text(0.5, -0.36, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=9, color='black', transform=ax1.transAxes) ##
-plt.text(0.5, -0.4, 'Fonte: Weather Channel', ha='center', va='center', fontsize=9, color='black', transform=ax1.transAxes)
+plt.text(0.5, -0.36, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=10, color='black', transform=ax1.transAxes) ##
+plt.text(0.5, -0.4, 'Fonte: Weather Channel', ha='center', va='center', fontsize=10, color='black', transform=ax1.transAxes)
 
 #plt.legend(loc='best')
 plt.tight_layout()
