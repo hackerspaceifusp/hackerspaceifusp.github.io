@@ -130,7 +130,7 @@ if not gdf.empty:
     h1 = hora_ref.hour
     h2 = (h1 + 1) % 24
     plt.figtext(0.5, 1.00, f"Temperaturas no IFUSP - Médias entre as {h1:02d} e {h2:02d}h", fontsize=18, ha='center')
-#plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Atualizado em {horas[0]}", fontsize=18, ha='center')
+#plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Atualizado em {horas[0]}", fontsize=22, ha='center')
 
 # Adicionando colorbar
 #cbar = plt.colorbar(sc, ax=ax, orientation='vertical', shrink=0.9)
@@ -138,7 +138,7 @@ if not gdf.empty:
 #cbar.set_ticks(np.arange(-10, 46, 5))  # Ajustando os ticks do colorbar
 
 # Adicionando textos ao mapa
-plt.figtext(0.5, -0.01, f"Atualizado a cada 1 hora", fontsize=12, ha='center')
+plt.figtext(0.5, -0.01, f"Atualizado a cada 1 hora", fontsize=16, ha='center')
 for idx, row in gdf.iterrows():
     if not np.isnan(row['Temperatura']):
         if idx in [0]:
