@@ -138,7 +138,7 @@ a:hover, a:focus {
 }
 @media (min-width: 700px) {
     .grid-section {
-        grid-template-columns: 1.5fr 1.5fr 1fr;
+        grid-template-columns: 1.5fr 1.5fr 1.1fr;
         grid-template-rows: 1.2fr 1fr;
         grid-template-areas:
             "main mapa previsao"
