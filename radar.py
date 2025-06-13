@@ -149,7 +149,7 @@ ax.text((scale_start[1] + scale_end.longitude) / 2, scale_start[0] - 0.03,
         "20 km", fontsize=10, color='black', ha='center', transform=ccrs.PlateCarree())
 
 # Adicionar horário no canto inferior direito
-ax.text(LON_CENTRO+delta_lon*0.8, LAT_CENTRO-delta_lat*0.85, timestamp_brasilia, fontsize=10, color='black', ha='right')
+ax.text(LON_CENTRO+delta_lon*0.85, LAT_CENTRO-delta_lat*0.9, timestamp_brasilia, fontsize=10, color='black', ha='right')
 ax.scatter(LON_CENTRO, LAT_CENTRO, color='blue', s=70, transform=ccrs.PlateCarree(), label=nome)
 ax.text(LON_CENTRO, LAT_CENTRO - 0.04, "IFUSP", fontsize=12, color='black', transform=ccrs.PlateCarree(), ha='center')
 
@@ -164,7 +164,7 @@ cmap = mcolors.LinearSegmentedColormap.from_list("rain_cmap", list(zip(positions
 norm = mcolors.Normalize(vmin=0, vmax=1)
 
 # Criar a barra de cores discreta
-cbar_ax = fig.add_axes([0.85, 0.3, 0.015, 0.4])  # Mais estreito e menor altura
+cbar_ax = fig.add_axes([0.95, 0.3, 0.015, 0.4])  # Mais estreito e menor altura
 cbar = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cbar_ax)
 
 # Ajustar fonte e espaçamento para um estilo mais discreto
