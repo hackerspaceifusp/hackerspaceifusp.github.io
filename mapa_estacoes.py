@@ -114,7 +114,7 @@ norm = Normalize(vmin=-10, vmax=45)  # Definindo os limites do colormap
 xlim = [gdf.geometry.x.min() - 200, gdf.geometry.x.max() + 150]
 ylim = [gdf.geometry.y.min() - 150, gdf.geometry.y.max() + 200]
 
-sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=2000, edgecolor='k', linewidth=0, norm=norm)
+sc = ax.scatter(gdf.geometry.x, gdf.geometry.y, c=gdf['Temperatura'], cmap=custom_colormap, s=3000, edgecolor='k', linewidth=0, norm=norm)
 # Adiciona um ponto invisível na área à esquerda
 ax.plot(gdf.geometry.x.min() - 300, gdf.geometry.y.mean(), alpha=0)
 ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, crs=gdf.crs, reset_extent=False, zoom=17)  # Changed provider
@@ -129,7 +129,7 @@ if not gdf.empty:
     hora_ref = gdf['Hora'].iloc[0].astimezone(brasilia_tz)
     h1 = hora_ref.hour
     h2 = (h1 + 1) % 24
-    plt.figtext(0.5, 1.00, f"Temperaturas no IFUSP - Médias entre as {h1:02d} e {h2:02d}h", fontsize=18, ha='center')
+    plt.figtext(0.5, 1.00, f"Temperaturas no IFUSP - Médias entre as {h1:02d} e {h2:02d}h", fontsize=22, ha='center')
 #plt.figtext(0.5, 1.00, f"Temperaturas médias no IFUSP - Atualizado em {horas[0]}", fontsize=22, ha='center')
 
 # Adicionando colorbar
@@ -138,17 +138,17 @@ if not gdf.empty:
 #cbar.set_ticks(np.arange(-10, 46, 5))  # Ajustando os ticks do colorbar
 
 # Adicionando textos ao mapa
-plt.figtext(0.5, -0.01, f"Atualizado a cada 1 hora", fontsize=16, ha='center')
+plt.figtext(0.5, -0.01, f"Atualizado a cada 1 hora", fontsize=18, ha='center')
 for idx, row in gdf.iterrows():
     if not np.isnan(row['Temperatura']):
         if idx in [0]:
-            ax.text(row.geometry.x, row.geometry.y + 20, f"Gramado", color='black', va='center', ha='center', fontsize=12, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y + 16, f"Gramado", color='black', va='center', ha='center', fontsize=15, weight='bold')
         elif idx in [1]:
-            ax.text(row.geometry.x, row.geometry.y - 20, f"Pelletron - topo", color='black', va='center', ha='center', fontsize=12, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y - 16, f"Pelletron - topo", color='black', va='center', ha='center', fontsize=15, weight='bold')
         if (33 <= row['Temperatura'] < 40) or (-5 < row['Temperatura'] <= 5):
-            ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='white', ha='center', va='center', fontsize=16, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='white', ha='center', va='center', fontsize=18, weight='bold')
         else:
-            ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='black', ha='center', va='center', fontsize=16, weight='bold')
+            ax.text(row.geometry.x, row.geometry.y, f'{row["Temperatura"]:.1f}', color='black', ha='center', va='center', fontsize=18, weight='bold')
 
 # Salvar o gráfico em um arquivo
 plt.tight_layout()
