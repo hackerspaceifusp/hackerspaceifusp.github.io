@@ -170,7 +170,7 @@ a:hover, a:focus {
     .grid-item:nth-child(3) { grid-area: previsao; }
     .grid-item:nth-child(4) { grid-area: radar; }
 }
-@media (orientation: portrait) {
+@media (orientation: landscape) {
     body {
         display: block;
     }
