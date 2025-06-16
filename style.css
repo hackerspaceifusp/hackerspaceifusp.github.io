@@ -66,7 +66,7 @@ main {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     width: 95vw;
-    max-width: 1500px;
+    max-width: 3200px;
     margin: 0;
     padding: 12px 0 12px 0;
     box-sizing: border-box;
