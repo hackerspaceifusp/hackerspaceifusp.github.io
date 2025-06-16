@@ -1,172 +1,172 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    font-family: 'Roboto', Arial, sans-serif;
-    text-align: center;
-}
-header {
-    background-color: #0F6688;
-    color: white;
-    padding: 8px 0 8px 0;
-    position: sticky;
-    top: 0;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-header h1 {
-    font-size: 1.5rem;
-    margin: 0;
-    display: inline-block;
-    margin-left: 16px;
-}
-.logo-ifusp {
-    height: 34px;
-    width: auto;
-    margin-left: 18px;
-    margin-right: 10px;
-    display: block;
-}
-.social-buttons {
-    display: flex;
-    gap: 12px;
-    margin-right: 15px;
-}
-.social-buttons a svg {
-    display: block;
-    width: 28px;
-    height: 28px;
-    transition: transform 0.2s, filter 0.2s;
-}
-.social-buttons a:hover svg {
-    filter: brightness(1.2) drop-shadow(0 0 2px #FFD600);
-    transform: scale(1.12);
-}
-main {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 0;
-    height: 100%;
-}
-.grid-section {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    width: 95vw;
-    max-width: 2395px;
-    margin: 0;
-    padding: 12px 0 12px 0;
-    box-sizing: border-box;
-    height: 100%;
-    min-height: 0;
-    grid-template-areas:
-        "main main"
-        "mapa previsao"
-        "radar radar";
-}
-.grid-item {
-    background-color: white;
-    border-radius: 0px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    aspect-ratio: unset;
-    min-width: 0;
-    min-height: 0;
-    max-width: 580px;
-    max-height: 580px;
-}
-.grid-item:first-child {
-    grid-area: main;
-    grid-row: 1 / span 2;
-    grid-column: 1 / span 2;
-    min-height: 400px;
-    min-width: 0;
-    max-width: 100%;
-    max-height: 100%;
-    aspect-ratio: 2/1;
-    z-index: 1;
-}
-.grid-item img {
-    width: auto;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 0px;
-    display: block;
-}
-footer {
-    background-color: #0F6688;
-    color: white;
-    padding: 5px 0;
-    /* bottom: 0; */
-    /* left: 0; */
-    width: 100%;
-    z-index: 100;
-    font-size: 0.95rem;
-}
-footer p {
-    margin: 0;
-}
-a {
-    color: #ffffff;
-    text-decoration: underline;
-    font-weight: 500;
-}
-a:visited {
-    color: #ffffff;
-}
-a:hover, a:focus {
-    color: #FFF176;
-}
-@media {
-    .grid-section {
-        grid-template-columns: 1.5fr 1.5fr 1.1fr;
-        grid-template-rows: 1.2fr 1fr;
-        grid-template-areas:
-            "main mapa previsao"
-            "main mapa radar";
-        height: 95vh;
-    }
-    .grid-item:first-child {
-        grid-area: main;
-        min-height: 0;
-        min-width: 0;
-        max-width: 100%;
-        max-height: 100%;
-        aspect-ratio: unset;
-        z-index: 2;
-        box-shadow: 0 0 18px 2px #0F668822;
-        font-size: 1.1em;
-    }
-    .grid-item:nth-child(2) {
-        grid-area: mapa;
-        min-height: 0;
-        min-width: 0;
-        max-width: 100%;
-        max-height: 100%;
-        aspect-ratio: unset;
-        z-index: 2;
-        box-shadow: 0 0 18px 2px #0F668822;
-        font-size: 1.1em;
-    }
-    .grid-item:nth-child(3) { grid-area: previsao; }
-    .grid-item:nth-child(4) { grid-area: radar; }
-}
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            font-family: 'Roboto', Arial, sans-serif;
+            text-align: center;
+        }
+        header {
+            background-color: #0F6688;
+            color: white;
+            padding: 8px 0 8px 0;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            display: inline-block;
+            margin-left: 16px;
+        }
+        .logo-ifusp {
+            height: 34px;
+            width: auto;
+            margin-left: 18px;
+            margin-right: 10px;
+            display: block;
+        }
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            margin-right: 15px;
+        }
+        .social-buttons a svg {
+            display: block;
+            width: 28px;
+            height: 28px;
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .social-buttons a:hover svg {
+            filter: brightness(1.2) drop-shadow(0 0 2px #FFD600);
+            transform: scale(1.12);
+        }
+        main {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 0;
+            height: 100%;
+        }
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 2395px; /* Fixed width */
+            max-width: 2395px;
+            height: 1347px; /* Fixed height */
+            margin: 0;
+            padding: 12px 0 12px 0;
+            box-sizing: border-box;
+            min-height: 0;
+            grid-template-areas:
+                "main main"
+                "mapa previsao"
+                "radar radar";
+        }
+        .grid-item {
+            background-color: white;
+            border-radius: 0px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            aspect-ratio: unset;
+            min-width: 0;
+            min-height: 0;
+            max-width: 1186.5px; /* Adjusted max-width */
+            max-height: 667.5px; /* Adjusted max-height */
+        }
+        .grid-item:first-child {
+            grid-area: main;
+            grid-row: 1 / span 1; /* Adjusted grid-row */
+            grid-column: 1 / span 2;
+            min-height: 667.5px; /* Adjusted min-height */
+            min-width: 0;
+            max-width: 100%;
+            max-height: 100%;
+            aspect-ratio: 2/1;
+            z-index: 1;
+        }
+        .grid-item img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 0px;
+            display: block;
+        }
+        footer {
+            background-color: #0F6688;
+            color: white;
+            padding: 5px 0;
+            /* bottom: 0; */
+            /* left: 0; */
+            width: 100%;
+            z-index: 100;
+            font-size: 0.95rem;
+        }
+        footer p {
+            margin: 0;
+        }
+        a {
+            color: #ffffff;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        a:visited {
+            color: #ffffff;
+        }
+        a:hover, a:focus {
+            color: #FFF176;
+        }
+        @media (min-width: 768px) {
+            .grid-section {
+                grid-template-columns: 1.5fr 1.5fr 1.1fr;
+                grid-template-rows: 1.2fr 1fr;
+                grid-template-areas:
+                    "main mapa previsao"
+                    "main mapa radar";
+                height: 1347px; /* Fixed height in media query */
+            }
+            .grid-item:first-child {
+                grid-area: main;
+                min-height: 0;
+                min-width: 0;
+                max-width: 100%;
+                max-height: 100%;
+                aspect-ratio: unset;
+                z-index: 2;
+                box-shadow: 0 0 18px 2px #0F668822;
+                font-size: 1.1em;
+            }
+            .grid-item:nth-child(2) {
+                grid-area: mapa;
+                min-height: 0;
+                min-width: 0;
+                max-width: 100%;
+                max-height: 100%;
+                aspect-ratio: unset;
+                z-index: 2;
+                box-shadow: 0 0 18px 2px #0F668822;
+                font-size: 1.1em;
+            }
+            .grid-item:nth-child(3) { grid-area: previsao; }
+            .grid-item:nth-child(4) { grid-area: radar; }
+        }
