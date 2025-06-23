@@ -67,7 +67,7 @@ else: #Quando acontecer algo estranho e Amanhã estiver numa posição diferente
   icons = forecast_data['daypart'][0]['iconCode'][posicao_amanha::2]  # Filtra apenas os ícones diurnos
 
 
-fig, ax1 = plt.subplots(figsize=(9, 8))
+fig, ax1 = plt.subplots(figsize=(9, 10))
 
 # Plot das temperaturas
 ax1.plot(dias, temp_max, '-o', label='Temp máx', color='red')
