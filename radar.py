@@ -164,7 +164,7 @@ cmap = mcolors.LinearSegmentedColormap.from_list("rain_cmap", list(zip(positions
 norm = mcolors.Normalize(vmin=0, vmax=1)
 
 # Criar a barra de cores discreta
-cbar_ax = fig.add_axes([0.95, 0.3, 0.015, 0.4])  # Mais estreito e menor altura
+cbar_ax = fig.add_axes([0.92, 0.3, 0.015, 0.4])  # Mais estreito e menor altura
 cbar = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cbar_ax)
 
 # Ajustar fonte e espaçamento para um estilo mais discreto
