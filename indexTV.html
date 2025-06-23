@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gráfico do Tempo - IFUSP</title>
+    <style>
+        /* Definir o estilo do body para centralização */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Estilo para centralizar as imagens horizontalmente */
+        .imagens-container {
+            display: flex;
+            justify-content: center; /* Centraliza o conteúdo horizontalmente */
+            gap: 0px; /* Espaçamento horizontal entre os subcontêineres */
+        }
+        
+        .imagens-vertical {
+            display: flex;
+            flex-direction: column; /* Empilha imagens 3 e 4 verticalmente */
+            align-items: center; /* Centraliza as imagens horizontalmente */
+            gap: 0px; /* Espaçamento vertical entre as imagens */
+        }
+        
+        .imagens-horizontal {
+            display: flex;
+            flex-direction: row; /* Imagens 1 e 2 lado a lado */
+            align-items: center; /* Alinha verticalmente as imagens */
+            gap: 0px; /* Espaçamento horizontal entre as imagens */
+        }
+
+        /* Estilo individual para as imagens */
+        .imagem1 {    /* Essa é para os dados atuais */
+            width: 650px; /* Ajusta automaticamente a largura para manter a proporção */
+            height: auto; /* Define a altura da primeira imagem */
+            display: block;
+        }
+
+        .imagem2 {    /* Essa é para a previsão */
+            width: auto; /* Ajusta automaticamente a largura para manter a proporção */
+            height: 450px; /* Define a altura da segunda imagem */
+            display: block;
+        }
+
+        .imagem3 {    /* Essa é para o mapa */
+            width: auto; /* Ajusta automaticamente a largura para manter a proporção */
+            height: 480px; /* Ajuste a altura conforme necessário */
+            display: block;
+            margin-top: 0px; /* Espaçamento acima, separando da imagem 3 */
+        }
+
+        .imagem4 {    /* Essa é para o radar */
+            width: auto; /* Ajusta automaticamente a largura para manter a proporção */
+            height: 400px; /* Ajuste a altura conforme necessário */
+            display: block;
+            margin-top: 0px; /* Espaçamento acima, separando da imagem 3 */
+        }
+
+        /* Adiciona mais espaço entre as imagens e o texto */
+        .texto-final {
+            margin-top: 30px; /* Ajuste este valor conforme necessário */
+        }
+
+        /* Estilo para alinhar o primeiro h2 à esquerda */
+        .texto-final:first-of-type {
+            text-align: center;
+            width: 100%; /* Faz o elemento ocupar toda a largura disponível */
+            padding-left: 20px; /* Opcional: ajuste de espaçamento da borda esquerda */
+            font-size: 14px;
+        }
+
+        /* Contêiner para o oferecimento */
+        .oferecimento-container {
+            position: relative;
+            width: 100%; /* Ocupa a largura total do contêiner */
+            text-align: center;
+            padding-left: 20px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* Posicionamento do QR code à direita */
+        .qr-code-container {
+            position: absolute;
+            right: 1400px; /* Distância do lado direito */
+            top: -70px;
+            text-align: center; /* Centraliza o texto e imagem no contêiner */
+        }
+
+        /* Ajuste do tamanho do QR code */
+        .qr-code {
+            width: 100px; /* Define a largura do QR code */
+            height: auto; /* Mantém a proporção */
+            margin-bottom: 5px; /* Aproxima o h3 ao QR code */
+        }
+
+        /* Remover margens do h3 para ajustá-lo ao QR code */
+        .qr-code-container h3 {
+            margin: 0;
+            font-size: 14px; /* Ajuste opcional do tamanho da fonte */
+        }
+    </style>
+</head>
+<body>
+    <div class="imagens-container">
+        <!-- Subcontêiner para imagem 1 -->
+        <div class="imagens-horizontal">
+            <img src="graph.png" alt="Gráfico do Tempo Atual" class="imagem1">
+        </div>
+        <!-- Subcontêiner para imagem 2 -->
+        <div class="imagens-horizontal">
+            <img src="previsao.png" alt="Previsão do Tempo" class="imagem2">
+        </div>
+      <!-- Subcontêiner para imagens 3 e 4 -->
+        <div class="imagens-vertical">
+            <img src="mapa.png" alt="Mapa de estações" class="imagem3">
+            <img src="radar.png" alt="Radar de Chuvas" class="imagem4">
+        </div>
+    </div>
+    
+    <div class="oferecimento-container">
+        <h2>Um projeto realizado por HackerSpace-IFUSP e LFA-IFUSP | © 2025</h2>
+        <div class="qr-code-container">
+            <img src="qrcode_HS.png" alt="QR Code Estação" class="qr-code">
+            <h3>Acesse este site.</h3>
+        </div>
+    </div>
+</body>
+</html>
