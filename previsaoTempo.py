@@ -144,9 +144,9 @@ for i, (dia, cond) in enumerate(zip(dias, narrativas)):
 
     #img = mpimg.imread(icon_path)
     if len(dias) == 6:
-        ax1.figure.figimage(img, 110 + i * 120, 103, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
+        ax1.figure.figimage(img, 110 + i * 120, 130, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
     elif len(dias) == 5:
-        ax1.figure.figimage(img, 110 + i * 150, 103, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
+        ax1.figure.figimage(img, 110 + i * 150, 130, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
 
     # Texto da condição abaixo do ícone
     # Aplica a quebra de linha à narrativa, sem quebrar palavras no meio
