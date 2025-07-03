@@ -117,7 +117,7 @@ if temp is not None:
     tmax_color = cmap(np.clip((max_temp + 10) / 55, 0, 1))
     tmin_color = cmap(np.clip((min_temp + 10) / 55, 0, 1))
     hum_color = cmap_hum(humidity / 100)
-    pres_color = cmap_pres((pressure - 920) / 20)
+    pres_color = cmap_pres((pressure - 925) / 20)
 
     hora_atual = f"{timestamp.hour:02d}"
     minuto_atual = f"{timestamp.minute:02d}"
@@ -138,11 +138,13 @@ if temp is not None:
 
     quadrado = plt.Rectangle((0.39, 1.03), 0.22, 0.10, transform=fig.transFigure, color=hum_color, lw=0)
     fig.patches.append(quadrado)
-    plt.figtext(0.50, 1.055, f"Umidade:\n {humidity:.0f} %", fontsize=20, ha='center', color='black')
+    text_color = 'white' if (humidity >= 90) else 'black'
+    plt.figtext(0.50, 1.055, f"Umidade:\n {humidity:.0f} %", fontsize=20, ha='center', color=text_color)
 
     quadrado = plt.Rectangle((0.63, 1.03), 0.22, 0.10, transform=fig.transFigure, color=pres_color, lw=0)
     fig.patches.append(quadrado)
-    plt.figtext(0.74, 1.055, f"Pressão:\n {pressure:.1f} hPa", fontsize=20, ha='center', color='black')
+    text_color = 'white' if (pressure >= 940) else 'black'
+    plt.figtext(0.74, 1.055, f"Pressão:\n {pressure:.1f} hPa", fontsize=20, ha='center', color=text_color)
 
     
     #plt.figtext(0.5, 1.04, f"Temperatura: {temp:.1f} °C", fontsize=20, ha='center', color=temp_color)
