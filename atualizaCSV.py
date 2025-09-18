@@ -18,7 +18,7 @@ def get_weather_data():
     WU_API_KEY = os.getenv('WU_API_KEY')
     if not WU_API_KEY:
         raise ValueError("A chave da API não foi encontrada. Defina 'WU_API_KEY' como uma variável de ambiente.")
-    STATION_ID = "ISOPAU330"
+    STATION_ID = "ISOPAU314"
     url = f"https://api.weather.com/v2/pws/observations/current?stationId={STATION_ID}&format=json&units=m&numericPrecision=decimal&apiKey={WU_API_KEY}"
     try:
         response = requests.get(url)
