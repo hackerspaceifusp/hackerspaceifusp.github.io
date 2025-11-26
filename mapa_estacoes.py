@@ -83,7 +83,7 @@ limite_inferior = agora - timedelta(hours=1)
 dados = dados[(dados['Hora'] >= limite_inferior) & (dados['Hora'] <= agora)].copy()
 
 # Corrige a posição da estação do gramado e do Pelletron, se ainda estiverem no DataFrame
-if 'ISOPAU330' in dados['Estacao'].iloc[0]:
+if 'ISOPAU314' in dados['Estacao'].iloc[0]:
     dados.loc[dados.index[0], 'Latitude'] = -23.561243
     dados.loc[dados.index[0], 'Longitude'] = -46.734260
 if 'ISOPAU334' in dados['Estacao'].iloc[0]:
