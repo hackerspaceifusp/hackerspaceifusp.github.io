@@ -151,7 +151,7 @@ sc = gdf_plot.plot(
     cmap=new_cmap,
     vmin=-10,
     vmax=45,
-    markersize=450,
+    markersize=700,
     alpha=0.8,
     edgecolors='black',
     legend=False
@@ -166,7 +166,7 @@ ctx.add_basemap(
 )
 
 # 6. Personalização (Eixos e Título)
-ax.set_title("Temperaturas em São Paulo (CGE-SP)", fontsize=14)
+ax.set_title("Temperaturas em São Paulo (CGE-SP)", fontsize=16)
 ax.set_axis_off()
 
 
@@ -198,7 +198,7 @@ for index, row in gdf_plot.iterrows():
         ax.annotate(
             f"{temp_num:.1f}",
             (x, y),
-            fontsize=8,
+            fontsize=12,
             color=text_color,
             ha='center',
             va='center',
@@ -223,7 +223,7 @@ for index, row in gdf_plot.iterrows():
         ax.annotate(
             nome_estacao,
             (x_pos, vertical_pos),
-            fontsize=7,
+            fontsize=10,
             ha='center',
             va=alinhamento_vertical,
             color='black',
@@ -239,7 +239,7 @@ ax.annotate(
     texto_horario,
     xy=(0.05, 0.07),
     xycoords='axes fraction',
-    fontsize=9,
+    fontsize=14,
     ha='left',
     va='top',
     bbox=box_props
