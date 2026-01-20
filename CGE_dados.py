@@ -51,7 +51,7 @@ def obter_dados_estacao():
             
             # Chuva Acumulada
             elif "Per. Atual:" in txt:
-                chuva_float = limpar_e_converter(r'Per\. Atual:\s*(\d+[\.]?\d*)', txt) or 0.0
+                chuva_float = limpar_e_converter(r'Per\. Atual:\s*(\d+[,.]\d+)\s*mm', txt) or 0.0
             
             # Velocidade do Vento
             elif "Velocidade:" in txt:
