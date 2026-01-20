@@ -107,7 +107,6 @@ for nome, posto_id, lat, lon in estacoes_cge:
             'Temperatura': 'N/D',
             'Chuva_Atual': 'N/D'
         })
-    print(f" -> Coletando dados para {nome} (Temp: {dados_reais.Temperatura})...")
 
 df = pd.DataFrame(dados_para_plotagem)
 
@@ -131,7 +130,8 @@ new_cmap = mcolors.LinearSegmentedColormap.from_list(
 # 2. Preparação dos Dados para GeoPandas (INCLUINDO CHUVA NUMÉRICA) <--- MUDANÇA AQUI
 df['Temperatura_Num'] = df['Temperatura'].str.replace('°C', '').replace('N/D', np.nan).astype(float)
 # Cria a coluna de chuva, substituindo N/D por 0 para que a barra não seja plotada
-df['Chuva_Num'] = df['Chuva_Atual'].str.replace('mm', '').replace('N/D', '0').astype(float)
+df['Chuva_Num'] = df['Chuva_Atual'].str.replace('mm', '').replace('N/D', np.nan).astype(float)
+df = df.dropna(subset=['Chuva_Num'])
 
 # Cria e projeta o GeoDataFrame
 gdf = gpd.GeoDataFrame(
