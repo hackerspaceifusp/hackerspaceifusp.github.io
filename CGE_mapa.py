@@ -113,6 +113,7 @@ for nome, posto_id, lat, lon in estacoes_cge:
             'Longitude': lon,
             'Temperatura': 'N/D',
             'Chuva_Atual': 'N/D'
+    print(f" -> Coletando dados para {nome} (Temp: {dados_reais.Temperatura})...")
         })
 
 df = pd.DataFrame(dados_para_plotagem)
