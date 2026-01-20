@@ -23,10 +23,6 @@ def obter_dados_estacao():
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
 
-        # 0. A EXTRAÇÃO DO TIMESTAMP ESTÁ FALTANDO NESTA VERSÃO.
-        # (Voltando ao estado anterior à tentativa de corrigir o timestamp)
-        timestamp_texto = 'N/D'
-
         # 1. Tentar encontrar o bloco de chuva
         chuva_atual = 'N/D'
         chuva_element = soup.find(lambda tag: tag.name == 'td' and "Per. Atual:" in tag.text)
@@ -50,7 +46,8 @@ def obter_dados_estacao():
             match = re.search(r'Atual:\s*(\d+[,.]\d+)\s*%', umidade_element.text.replace(",", "."))
             if match:
                 umidade = f"{float(match.group(1)):.1f}%"
-
+                gamma = np.log(umidade/100) + (17.625*temperatura)/(243.04 + temperatura)
+                dew_point = (243.04 * gamma)/(17.625 - gamma)
 
         # 4. Tentar encontrar a Velocidade do Vento
         vento_velocidade = 'N/D'
@@ -63,13 +60,12 @@ def obter_dados_estacao():
                 vento_velocidade = f"{velocidade:.1f}{unidade}"
 
         timestamp = datetime.now(brasilia_tz)
-        gamma = np.log(umidade) + (17.625*temperatura)/(243.04 + temperatura)
-        dew_point = (243.04 * gamma)/(17.625 - gamma)
       
         return temperatura, dew_point, chuva_atual, umidade, vento_velocidade, timestamp
 
     except requests.RequestException as e:
         print(f"Erro de requisição ao acessar a estação: {e}")
+        timestamp = datetime.now(brasilia_tz)
         return None, None, None, None, None, timestamp
     except Exception as e:
         print(f"Erro inesperado no scraping da estação: {e}")
