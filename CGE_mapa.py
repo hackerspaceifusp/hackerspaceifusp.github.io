@@ -84,11 +84,18 @@ def obter_dados_estacao(posto_id):
             elif "Per. Atual:" in txt:
                 chuva_float = limpar_e_converter(r'Per\. Atual:\s*(\d+[,.]\d+)\s*mm', txt) or 0.0
 
-        return temp_float, chuva_float
+        dados_tempo_real = {
+            "Temperatura": temperatura,
+            "Chuva_Atual": chuva_atual,
+            # Adicionando o campo, mas ele será N/D
+            "Last_Update_Str": timestamp_texto
+        }
+
+        return dados_tempo_real
 
     except Exception as e:
         print(f"Erro ao processar dados da estação: {e}")
-        return None, None
+        return None
 
 dados_para_plotagem = []
 for nome, posto_id, lat, lon in estacoes_cge:
