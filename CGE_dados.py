@@ -17,68 +17,58 @@ brasilia_tz = pytz.timezone("America/Sao_Paulo")
 
 def obter_dados_estacao():
     url = "https://www.cgesp.org/v3/estacao.jsp?POSTO=1000842"
+    timestamp = datetime.now(brasilia_tz)
 
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=15)
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
 
-        # 1. Tentar encontrar o bloco de chuva
-        chuva_atual = 'N/D'
-        chuva_element = soup.find(lambda tag: tag.name == 'td' and "Per. Atual:" in tag.text)
-        if chuva_element:
-            match = re.search(r'Per\. Atual:\s*(\d+[,.]\d+)\s*mm', chuva_element.text.replace(",", "."))
+        # Função auxiliar para limpar o texto e extrair apenas o número
+        def limpar_e_converter(padrao, texto):
+            match = re.search(padrao, texto.replace(",", "."))
             if match:
-                chuva_atual = f"{float(match.group(1)):.1f}mm"
+                return float(match.group(1))
+            return None
 
-        # 2. Tentar encontrar a Temperatura Atual
-        temperatura = 'N/D'
-        temp_element = soup.find(lambda tag: tag.name == 'td' and "Atual:" in tag.text and "°C" in tag.text)
-        if temp_element:
-            match = re.search(r'Atual:\s*(\d+[,.]\d+)\s*°C', temp_element.text.replace(",", "."))
-            if match:
-                temperatura = f"{float(match.group(1)):.1f}°C"
+        # Inicializa as variáveis como None
+        temp_float = None
+        umidade_float = None
+        chuva_float = 0.0  # Chuva é melhor iniciar em 0.0
+        vento_float = 0.0
 
-        # 3. Tentar encontrar a Umidade Atual
-        umidade = 'N/D'
-        umidade_element = soup.find(lambda tag: tag.name == 'td' and "Atual:" in tag.text and "%" in tag.text)
-        if umidade_element:
-            match = re.search(r'Atual:\s*(\d+[,.]\d+)\s*%', umidade_element.text.replace(",", "."))
-            if match:
-                umidade = f"{float(match.group(1)):.1f}%"
+        # Itera pelas células para encontrar os dados
+        for td in soup.find_all('td'):
+            txt = td.get_text(strip=True)
+            
+            # Temperatura
+            if "Atual:" in txt and "°C" in txt:
+                temp_float = limpar_e_converter(r'Atual:\s*(\d+[\.]?\d*)', txt)
+            
+            # Umidade
+            elif "Atual:" in txt and "%" in txt:
+                umidade_float = limpar_e_converter(r'Atual:\s*(\d+[\.]?\d*)', txt)
+            
+            # Chuva Acumulada
+            elif "Per. Atual:" in txt:
+                chuva_float = limpar_e_converter(r'Per\. Atual:\s*(\d+[\.]?\d*)', txt) or 0.0
+            
+            # Velocidade do Vento
+            elif "Velocidade:" in txt:
+                vento_float = limpar_e_converter(r'Velocidade:\s*(\d+[\.]?\d*)', txt) or 0.0
 
-        # 4. Tentar encontrar a Velocidade do Vento
-        vento_velocidade = 'N/D'
-        vento_element = soup.find(lambda tag: tag.name == 'td' and "Velocidade:" in tag.text)
-        if vento_element:
-            match = re.search(r'Velocidade:\s*(\d+[,.]\d+)\s*(km/h|m/s)', vento_element.text.replace(",", "."))
-            if match:
-                velocidade = float(match.group(1))
-                unidade = match.group(2)
-                vento_velocidade = f"{velocidade:.1f}{unidade}"
+        # Cálculo do Dew Point (apenas se tivermos temperatura e umidade)
+        dew_point_float = None
+        if temp_float is not None and umidade_float is not None:
+            # Fórmula de Magnus-Tetens
+            gamma = np.log(umidade_float/100) + (17.625 * temp_float) / (243.04 + temp_float)
+            dew_point_float = (243.04 * gamma) / (17.625 - gamma)
 
-        timestamp = datetime.now(brasilia_tz)
-
-        # Converte para float antes de usar nos cálculos e gráficos
-        temp_float = float(temperatura.replace('°C', ''))
-        umidade_float = float(umidade.replace('%', ''))
-        chuva_float = float(chuva_atual.replace('mm', ''))
-        vento_float = float(vento_velocidade.replace('km/h', ''))
-        
-        # Aí sim calcule o Dew Point
-        gamma = np.log(umidade_float/100) + (17.625 * temp_float) / (243.04 + temp_float)
-        dew_point_float = (243.04 * gamma) / (17.625 - gamma)
-
-      
         return temp_float, dew_point_float, chuva_float, umidade_float, vento_float, timestamp
 
-    except requests.RequestException as e:
-        print(f"Erro de requisição ao acessar a estação: {e}")
-        timestamp = datetime.now(brasilia_tz)
-        return None, None, None, None, None, timestamp
     except Exception as e:
-        print(f"Erro inesperado no scraping da estação: {e}")
-        return None, None, None, None, None, None
+        print(f"Erro ao processar dados da estação: {e}")
+        return None, None, None, None, None, timestamp
 
 
 
