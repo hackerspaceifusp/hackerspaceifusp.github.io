@@ -93,7 +93,7 @@ else:
     df = pd.DataFrame(columns=['Timestamp', 'Temperature', 'Humidity', 'Rain', 'WindSpeed', 'Dew Point'])
 
 # Obter os dados atuais
-temp, dew_point, rain, humidity, wind, timestamp = get_weather_data()
+temp, dew_point, rain, humidity, wind, timestamp = obter_dados_estacao()
 
 # Limites do eixo x: de timestamp - 25h até timestamp + 1h
 start_time = timestamp - timedelta(hours=25)
@@ -255,7 +255,7 @@ else:
     hora_atual = f"{timestamp.hour:02d}"
     minuto_atual = f"{timestamp.minute:02d}"
     dia_atual = f"{timestamp.day:02d}"
-    mes_atual = f"{timestamp.month}"
+    mes_atual = f"{timestamp.month:02d}"
     ano_atual = f"{timestamp.year}"
     fig.text(0.5, 0.99, estadoEstacao, color=state_color, fontsize=16, ha='center')
     # Exibir a temperatura, umidade, P.O. e pressão acima dos plots
