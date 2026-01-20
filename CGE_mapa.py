@@ -80,8 +80,6 @@ def obter_dados_estacao(posto_id):
         dados_tempo_real = {
             "Temperatura": temperatura,
             "Chuva_Atual": chuva_atual,
-            # Adicionando o campo, mas ele será N/D
-            "Last_Update_Str": timestamp_texto
         }
 
         return dados_tempo_real
@@ -105,8 +103,8 @@ for nome, posto_id, lat, lon in estacoes_cge:
             'Estacao': nome,
             'Latitude': lat,
             'Longitude': lon,
-            'Temperatura': 'N/D',
-            'Chuva_Atual': 'N/D'
+            'Temperatura': np.nan,
+            'Chuva_Atual': np.nan
         })
 
 df = pd.DataFrame(dados_para_plotagem)
