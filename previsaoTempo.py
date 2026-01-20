@@ -67,7 +67,7 @@ else: #Quando acontecer algo estranho e Amanhã estiver numa posição diferente
   icons = forecast_data['daypart'][0]['iconCode'][posicao_amanha::2]  # Filtra apenas os ícones diurnos
 
 
-fig, ax1 = plt.subplots(figsize=(9, 10))
+fig, ax1 = plt.subplots(figsize=(12, 10))
 
 # Plot das temperaturas
 ax1.plot(dias, temp_max, '-o', label='Temp máx', color='red')
@@ -80,26 +80,26 @@ for i in range(len(dias)):  ##
     min_temp = temp_min[i]  ##
 
     # Exibe a temperatura máxima
-    ax1.text(i, max_temp + 0.5, f'{max_temp}°C', ha='center', va='bottom', color='red', fontsize=16)  ##
+    ax1.text(i, max_temp + 0.5, f'{max_temp}°C', ha='center', va='bottom', color='red', fontsize=20)  ##
 
     # Verifica se a mínima do dia seguinte (i+1) é invertida, comparando com a mínima parcial do dia atual (i)
     if i > 0 and min_temp < temp_min_parc[i - 1]: ##
-        ax1.text(i, min_temp + 0.5, f'{min_temp}°C*', ha='center', va='bottom', color='blue', fontsize=16)  ##
+        ax1.text(i, min_temp + 0.5, f'{min_temp}°C*', ha='center', va='bottom', color='blue', fontsize=20)  ##
     else: ##
-        ax1.text(i, min_temp + 0.5, f'{min_temp}°C', ha='center', va='bottom', color='blue', fontsize=16) ##
+        ax1.text(i, min_temp + 0.5, f'{min_temp}°C', ha='center', va='bottom', color='blue', fontsize=20) ##
 
 
 # Plot da precipitação
 ax2 = ax1.twinx()
 bars = ax2.bar(dias, precip_volume, alpha=0.3, color='blue', label='Chuva') ##
-ax2.set_ylabel('Precipitação (mm)', color='blue',fontsize=18)
+ax2.set_ylabel('Precipitação (mm)', color='blue',fontsize=20)
 ax2.tick_params(axis='y', labelcolor='blue')
 ax2.set_ylim(0, max(20, 5*np.ceil(1.3*max(precip_volume)/5)))  # Ajusta o limite do eixo Y (mínimo ymax = 20 mm)
 
 # Adicionando probabilidade e volume de chuva sobre cada barra
 for i, (bar, prob, vol) in enumerate(zip(bars, precip_prob, precip_volume)):
     ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.08, f'Prob: {prob} %', ha='center', color='blue', fontsize=11, transform=ax2.transData)
-    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=14, transform=ax2.transData)
+    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=16, transform=ax2.transData)
 
 # Defina o mesmo número de ticks para os dois eixos
 num_ticks = 6  # Pode ajustar conforme necessário
@@ -109,8 +109,8 @@ ax2.yaxis.set_major_locator(MaxNLocator(num_ticks))
 # Configurações finais do gráfico
 ax1.set_xticks(range(len(dias)))
 ax1.set_xticklabels(dias)
-ax1.set_ylabel('Temperatura (°C)',fontsize=18)
-ax1.set_title('Previsão do tempo para os próximos dias',fontsize=16)
+ax1.set_ylabel('Temperatura (°C)',fontsize=20)
+ax1.set_title('Previsão do tempo para os próximos dias',fontsize=20)
 ax1.grid(True, linestyle='--', alpha=0.5)
 ax1.yaxis.set_major_formatter(formatter)
 ax2.yaxis.set_major_formatter(formatter)
@@ -154,8 +154,8 @@ for i, (dia, cond) in enumerate(zip(dias, narrativas)):
     ax2.text(i, ax2.get_ylim()[1] * -0.27, cond_wrapped, ha='center', va='center', fontsize=10, color='black', transform=ax2.transData)
 
 # Adicionando o texto "Fonte: Weather Channel" abaixo do gráfico
-plt.text(0.5, -0.36, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=10, color='black', transform=ax1.transAxes) ##
-plt.text(0.5, -0.4, 'Fonte: Weather Channel', ha='center', va='center', fontsize=10, color='black', transform=ax1.transAxes)
+plt.text(0.5, -0.36, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes) ##
+plt.text(0.5, -0.4, 'Fonte: Weather Channel', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes)
 
 #plt.legend(loc='best')
 plt.tight_layout()
