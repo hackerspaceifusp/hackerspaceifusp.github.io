@@ -3,3 +3,4 @@ pandas
 requests
 pytz
 numpy
+bs4
