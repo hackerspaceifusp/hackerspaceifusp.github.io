@@ -93,6 +93,7 @@ def obter_dados_estacao(posto_id):
 dados_para_plotagem = []
 for nome, posto_id, lat, lon in estacoes_cge:
     dados_reais = obter_dados_estacao(posto_id)
+    print(f" -> Coletando dados para {nome} (ID: {posto_id})... ---- Temperatura = {dados_reais['Temperatura']}")
 
     if dados_reais:
         dados_reais['Estacao'] = nome
