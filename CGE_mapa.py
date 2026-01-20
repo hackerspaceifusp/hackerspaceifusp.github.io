@@ -82,15 +82,13 @@ def obter_dados_estacao(posto_id):
             
             # Chuva Acumulada
             elif "Per. Atual:" in txt:
-                chuva_float = limpar_e_converter(r'Per\. Atual:\s*(\d+[\.]?\d*)', txt) or 0.0
+                chuva_float = limpar_e_converter(r'Per\. Atual:\s*(\d+[,.]\d+)\s*mm', txt) or 0.0
 
         return temp_float, chuva_float
 
     except Exception as e:
         print(f"Erro ao processar dados da estação: {e}")
         return None, None
-
-hora_atual = datetime.now(brasilia_tz).strftime("%d/%b/%Y %H:%M")
 
 dados_para_plotagem = []
 for nome, posto_id, lat, lon in estacoes_cge:
