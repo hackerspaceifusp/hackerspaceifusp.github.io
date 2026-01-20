@@ -62,13 +62,15 @@ def obter_dados_estacao():
         # Converte para float antes de usar nos cálculos e gráficos
         temp_float = float(temperatura.replace('°C', ''))
         umidade_float = float(umidade.replace('%', ''))
+        chuva_float = float(chuva_atual.replace('mm', ''))
+        vento_float = float(vento_velocidade.replace('km/h', ''))
         
         # Aí sim calcule o Dew Point
         gamma = np.log(umidade_float/100) + (17.625 * temp_float) / (243.04 + temp_float)
         dew_point_float = (243.04 * gamma) / (17.625 - gamma)
-        dew_point = f"{dew_point_float}°C"
+
       
-        return temperatura, dew_point, chuva_atual, umidade, vento_velocidade, timestamp
+        return temp_float, dew_point_float, chuva_float, umidade_float, vento_float, timestamp
 
     except requests.RequestException as e:
         print(f"Erro de requisição ao acessar a estação: {e}")
