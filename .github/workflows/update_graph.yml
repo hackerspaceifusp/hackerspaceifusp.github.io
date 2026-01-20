@@ -128,7 +128,8 @@ jobs:
       env:
         WU_API_KEY: ${{ secrets.WU_API_KEY }}
       run: |
-        python atualizaCSV.py
+        #python atualizaCSV.py
+        python cge_dados.py
 
     - name: Commit and Push Changes
       env:
@@ -136,6 +137,7 @@ jobs:
       run: |
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
-        git add graph.png weather_data.csv
+        #git add graph.png weather_data.csv
+        git add graph_cge.png CGE_weather_data.csv
         git commit -m 'Atualização automática do gráfico e dados' || echo "Nada para commitar"
         git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:main
