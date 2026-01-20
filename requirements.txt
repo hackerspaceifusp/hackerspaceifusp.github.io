@@ -4,3 +4,4 @@ requests
 pytz
 numpy
 bs4
+folium
