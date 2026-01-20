@@ -46,8 +46,6 @@ def obter_dados_estacao():
             match = re.search(r'Atual:\s*(\d+[,.]\d+)\s*%', umidade_element.text.replace(",", "."))
             if match:
                 umidade = f"{float(match.group(1)):.1f}%"
-                gamma = np.log(umidade/100) + (17.625*temperatura)/(243.04 + temperatura)
-                dew_point = (243.04 * gamma)/(17.625 - gamma)
 
         # 4. Tentar encontrar a Velocidade do Vento
         vento_velocidade = 'N/D'
@@ -60,6 +58,15 @@ def obter_dados_estacao():
                 vento_velocidade = f"{velocidade:.1f}{unidade}"
 
         timestamp = datetime.now(brasilia_tz)
+
+        # Converte para float antes de usar nos cálculos e gráficos
+        temp_float = float(temperatura.replace('°C', ''))
+        umidade_float = float(umidade.replace('%', ''))
+        
+        # Aí sim calcule o Dew Point
+        gamma = np.log(umidade_float/100) + (17.625 * temp_float) / (243.04 + temp_float)
+        dew_point_float = (243.04 * gamma) / (17.625 - gamma)
+        dew_point = f"{dew_point_float}°C"
       
         return temperatura, dew_point, chuva_atual, umidade, vento_velocidade, timestamp
 
