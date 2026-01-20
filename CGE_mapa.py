@@ -61,28 +61,21 @@ def obter_dados_estacao(posto_id):
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
 
-        # Função auxiliar para limpar o texto e extrair apenas o número
-        def limpar_e_converter(padrao, texto):
-            match = re.search(padrao, texto.replace(",", "."))
+        # 1. Tentar encontrar o bloco de chuva
+        chuva_atual = 'N/D'
+        chuva_element = soup.find(lambda tag: tag.name == 'td' and "Per. Atual:" in tag.text)
+        if chuva_element:
+            match = re.search(r'Per\. Atual:\s*(\d+[,.]\d+)\s*mm', chuva_element.text.replace(",", "."))
             if match:
-                return float(match.group(1))
-            return None
+                chuva_atual = float(match.group(1))
 
-        # Inicializa as variáveis como None
-        temp_float = None
-        chuva_float = 0.0  # Chuva é melhor iniciar em 0.0
-
-        # Itera pelas células para encontrar os dados
-        for td in soup.find_all('td'):
-            txt = td.get_text(strip=True)
-            
-            # Temperatura
-            if "Atual:" in txt and "°C" in txt:
-                temp_float = limpar_e_converter(r'Atual:\s*(\d+[\.]?\d*)', txt)
-            
-            # Chuva Acumulada
-            elif "Per. Atual:" in txt:
-                chuva_float = limpar_e_converter(r'Per\. Atual:\s*(\d+[,.]\d+)\s*mm', txt) or 0.0
+        # 2. Tentar encontrar a Temperatura Atual
+        temperatura = 'N/D'
+        temp_element = soup.find(lambda tag: tag.name == 'td' and "Atual:" in tag.text and "°C" in tag.text)
+        if temp_element:
+            match = re.search(r'Atual:\s*(\d+[,.]\d+)\s*°C', temp_element.text.replace(",", "."))
+            if match:
+                temperatura = float(match.group(1))
 
         dados_tempo_real = {
             "Temperatura": temperatura,
@@ -113,8 +106,8 @@ for nome, posto_id, lat, lon in estacoes_cge:
             'Longitude': lon,
             'Temperatura': 'N/D',
             'Chuva_Atual': 'N/D'
-    print(f" -> Coletando dados para {nome} (Temp: {dados_reais.Temperatura})...")
         })
+    print(f" -> Coletando dados para {nome} (Temp: {dados_reais.Temperatura})...")
 
 df = pd.DataFrame(dados_para_plotagem)
 
