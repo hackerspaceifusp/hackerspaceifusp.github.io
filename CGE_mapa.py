@@ -62,7 +62,7 @@ def obter_dados_estacao(posto_id):
         soup = BeautifulSoup(response.content, 'html.parser')
 
         # 1. Tentar encontrar o bloco de chuva
-        chuva_atual = 'N/D'
+        chuva_atual = np.nan
         chuva_element = soup.find(lambda tag: tag.name == 'td' and "Per. Atual:" in tag.text)
         if chuva_element:
             match = re.search(r'Per\. Atual:\s*(\d+[,.]\d+)\s*mm', chuva_element.text.replace(",", "."))
@@ -70,7 +70,7 @@ def obter_dados_estacao(posto_id):
                 chuva_atual = float(match.group(1))
 
         # 2. Tentar encontrar a Temperatura Atual
-        temperatura = 'N/D'
+        temperatura = np.nan
         temp_element = soup.find(lambda tag: tag.name == 'td' and "Atual:" in tag.text and "°C" in tag.text)
         if temp_element:
             match = re.search(r'Atual:\s*(\d+[,.]\d+)\s*°C', temp_element.text.replace(",", "."))
@@ -126,11 +126,9 @@ new_cmap = mcolors.LinearSegmentedColormap.from_list(
 )
 
 
-# 2. Preparação dos Dados para GeoPandas (INCLUINDO CHUVA NUMÉRICA) <--- MUDANÇA AQUI
-df['Temperatura_Num'] = df['Temperatura'].str.replace('°C', '').replace('N/D', np.nan).astype(float)
-# Cria a coluna de chuva, substituindo N/D por 0 para que a barra não seja plotada
-df['Chuva_Num'] = df['Chuva_Atual'].str.replace('mm', '').replace('N/D', np.nan).astype(float)
-df = df.dropna(subset=['Chuva_Num'])
+
+
+df = df.dropna(subset=['Chuva_Atual'])
 
 # Cria e projeta o GeoDataFrame
 gdf = gpd.GeoDataFrame(
@@ -139,7 +137,7 @@ gdf = gpd.GeoDataFrame(
     crs="EPSG:4326"
 )
 gdf_web_mercator = gdf.to_crs(epsg=3857)
-gdf_plot = gdf_web_mercator[gdf_web_mercator['Temperatura_Num'].notna()]
+gdf_plot = gdf_web_mercator[gdf_web_mercator['Temperatura'].notna()]
 
 
 # 3. Cria o objeto de figura e eixos do Matplotlib
@@ -149,7 +147,7 @@ fig, ax = plt.subplots(figsize=(10, 10))
 # 4. Desenhar o Scatter Plot (Temperatura)
 sc = gdf_plot.plot(
     ax=ax,
-    column='Temperatura_Num',
+    column='Temperatura',
     cmap=new_cmap,
     vmin=-10,
     vmax=45,
@@ -168,7 +166,7 @@ ctx.add_basemap(
 )
 
 # 6. Personalização (Eixos e Título)
-ax.set_title("Dados de Estações do CGE-SP - Temperatura e Precipitação", fontsize=14)
+ax.set_title("Temperaturas em São Paulo (CGE-SP)", fontsize=14)
 ax.set_axis_off()
 
 
@@ -181,106 +179,16 @@ sm.set_array([])
 
 # 8. Adicionar Barras de Chuva e Rótulos <--- MUDANÇA PRINCIPAL AQUI
 estacoes_acima = ["Jabaquara", "Campo Limpo", "M Boi Mirim", "S. Miguel", "Vila Maria", "Santana", "Marsilac", "Pinheiros", "S. de Parnaíba", "Lapa"]
-estacoes_esquerda = ["Campo Limpo", "Santana", "S. Miguel", "Parelheiros", "M Boi Mirim", "Cidade Ademar", "Butantã"]
-deslocamento_barra_x = 1700  # Posição da barra ao lado do ponto (em metros)
-largura_barra = 200         # Largura da barra (em metros)
-escala_maxima_chuva = 15.0  # Chuva máxima para controle da altura (15mm)
-altura_max_barra = 2000     # Altura máxima da barra no mapa (em metros)
 deslocamento_nome = 1400    # Deslocamento do nome (para longe da barra)
 
 
 for index, row in gdf_plot.iterrows():
-    temp_num = row['Temperatura_Num']
-    chuva_num = row['Chuva_Num'] # Usamos a nova coluna!
+    temp_num = row['Temperatura']
     x = row.geometry.x
     y = row.geometry.y
     nome_estacao = row['Estacao']
 
     if not pd.isna(temp_num):
-
-        # --- 1. PLOTAGEM DA BARRA DE CHUVA (SE HOUVER CHUVA) ---
-        if chuva_num > 0.0:
-            # Normaliza a altura da barra:
-            # (chuva_atual / escala_maxima) * altura_max_barra
-            altura_barra = (chuva_num / escala_maxima_chuva) * altura_max_barra
-            if altura_barra > altura_max_barra:
-                altura_barra = altura_max_barra
-
-            if nome_estacao in estacoes_esquerda:
-              # Desenha a barra vertical (usando ax.bar)
-              ax.bar(
-                  x - deslocamento_barra_x, # Posição X (ao lado do marcador)
-                  altura_barra,             # Altura da barra
-                  width=largura_barra,      # Largura da barra
-                  bottom=y-1000,                 # Começa na Latitude do ponto
-                  color='blue',
-                  alpha=0.7,
-                  edgecolor='darkblue',
-                  zorder=5 # Abaixo dos rótulos
-              )
-
-              if nome_estacao in estacoes_acima and chuva_num > 10:
-                # Adiciona o rótulo do valor da chuva (topo da barra)
-                ax.annotate(
-                    f"{chuva_num:.1f}",
-                    (x - deslocamento_barra_x - 500, y - altura_barra), # Posição: abaixo da barra
-                    fontsize=7,
-                    color='blue',
-                    ha='center',
-                    va='bottom',
-                    fontweight='bold',
-                    zorder=12
-                )
-              else:
-                # Adiciona o rótulo do valor da chuva (topo da barra)
-                ax.annotate(
-                    f"{chuva_num:.1f}",
-                    (x - deslocamento_barra_x - 500, y + altura_barra - 900), # Posição: topo da barra
-                    fontsize=7,
-                    color='blue',
-                    ha='center',
-                    va='bottom',
-                    fontweight='bold',
-                    zorder=12
-                )
-            else:
-              # Desenha a barra vertical (usando ax.bar)
-              ax.bar(
-                  x + deslocamento_barra_x, # Posição X (ao lado do marcador)
-                  altura_barra,             # Altura da barra
-                  width=largura_barra,      # Largura da barra
-                  bottom=y-1000,                 # Começa na Latitude do ponto
-                  color='blue',
-                  alpha=0.7,
-                  edgecolor='darkblue',
-                  zorder=5 # Abaixo dos rótulos
-              )
-
-              if nome_estacao in estacoes_acima and chuva_num > 10:
-                # Adiciona o rótulo do valor da chuva (topo da barra)
-                ax.annotate(
-                    f"{chuva_num:.1f}",
-                    (x + deslocamento_barra_x + 500, y - altura_barra - 900), # Posição: abaixo da barra
-                    fontsize=7,
-                    color='blue',
-                    ha='center',
-                    va='bottom',
-                    fontweight='bold',
-                    zorder=12
-                )
-              else:
-                # Adiciona o rótulo do valor da chuva (topo da barra)
-                ax.annotate(
-                    f"{chuva_num:.1f}",
-                    (x + deslocamento_barra_x + 500, y + altura_barra - 900), # Posição: topo da barra
-                    fontsize=7,
-                    color='blue',
-                    ha='center',
-                    va='bottom',
-                    fontweight='bold',
-                    zorder=12
-                )
-
 
         # --- 2. PLOTAGEM DO RÓTULO DE TEMPERATURA (DENTRO) ---
         text_color = 'white'
@@ -330,20 +238,6 @@ box_props = dict(boxstyle="round,pad=0.5", fc="white", alpha=0.7, ec="black", lw
 ax.annotate(
     texto_horario,
     xy=(0.05, 0.07),
-    xycoords='axes fraction',
-    fontsize=9,
-    ha='left',
-    va='top',
-    bbox=box_props
-)
-
-# 10. ADICIONAR O HORÁRIO DE ATUALIZAÇÃO DA CHUVA
-texto_horario = "Chuva contabilizada desde as 07:00"
-box_props = dict(boxstyle="round,pad=0.5", fc="white", alpha=0.7, ec="black", lw=1)
-
-ax.annotate(
-    texto_horario,
-    xy=(0.60, 0.05),
     xycoords='axes fraction',
     fontsize=9,
     ha='left',
