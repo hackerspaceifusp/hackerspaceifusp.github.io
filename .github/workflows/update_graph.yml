@@ -129,7 +129,7 @@ jobs:
         WU_API_KEY: ${{ secrets.WU_API_KEY }}
       run: |
         #python atualizaCSV.py
-        python cge_dados.py
+        python CGE_dados.py
 
     - name: Commit and Push Changes
       env:
