@@ -22,17 +22,17 @@ estacoes_cge = [
     ("Penha", 1000887, -23.530763, -46.528744),
     ("Perus", 504, -23.40716, -46.75264),
     ("Pirituba", 515, -23.489, -46.727),
-    ("Freguesia do Ó", 509, -23.47706, -46.66537),
+    ("Fregues. do Ó", 509, -23.47706, -46.66537),
     ("Santana", 510, -23.51064, -46.61746),
     ("Tremembé", 1000944, -23.459841, -46.585572),
     ("S. Miguel", 1000862, -23.491511, -46.46361),
-    ("Itaim Paulista", 1000882, -23.49067, -46.43599),
+    ("Itaim Paul.", 1000882, -23.49067, -46.43599),
     ("S. Mateus", 1000844, -23.594199, -46.465567),
     ("Sé", 503, -23.553, -46.656),
     ("Butantã", 1000842, -23.5545389, -46.7259528),
     ("Ipiranga", 1000840, -23.632978, -46.583518),
     ("Santo Amaro", 1000852, -23.634789, -46.667657),
-    ("M Boi Mirim", 1000850, -23.671486, -46.727305),
+    ("MBoi Mirim", 1000850, -23.671486, -46.727305),
     ("Cidade Ademar", 592, -23.6675, -46.675),
     ("Parelheiros", 507, -23.8678, -46.6522),
     ("Marsilac", 1000300, -23.916332, -46.727397),
@@ -178,8 +178,8 @@ sm.set_array([])
 
 
 # 8. Adicionar Barras de Chuva e Rótulos <--- MUDANÇA PRINCIPAL AQUI
-estacoes_acima = ["Jabaquara", "Campo Limpo", "M Boi Mirim", "S. Miguel", "Vila Maria", "Santana", "Marsilac", "Pinheiros", "S. de Parnaíba", "Lapa"]
-deslocamento_nome = 1400    # Deslocamento do nome (para longe da barra)
+estacoes_acima = ["Jabaquara", "Campo Limpo", "MBoi Mirim", "S. Miguel", "Vila Maria", "Santana", "Marsilac", "Pinheiros", "S. de Parnaíba", "Parelheiros", "Tremembé", "Fregues. do Ó"]
+deslocamento_nome = 1600    # Deslocamento do nome (para longe da barra)
 
 
 for index, row in gdf_plot.iterrows():
@@ -237,7 +237,7 @@ box_props = dict(boxstyle="round,pad=0.5", fc="white", alpha=0.7, ec="black", lw
 
 ax.annotate(
     texto_horario,
-    xy=(0.05, 0.07),
+    xy=(0.60, 0.07),
     xycoords='axes fraction',
     fontsize=14,
     ha='left',
