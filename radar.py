@@ -14,7 +14,7 @@ import matplotlib.colors as mcolors
 
 # Definições do mapa
 LAT_CENTRO, LON_CENTRO = -23.56, -46.73  # São Paulo, Brasil
-ZOOM = 8  # Define o zoom do radar e do mapa
+ZOOM = 7  # Define o zoom do radar e do mapa
 SIZE = 512  # Resolução do radar
 COLOR_SCHEME = 4  # Paleta de cores do radar
 OPTIONS = "1_1"  # Remove fundo preto do radar
@@ -145,7 +145,7 @@ scale_end = geodesic(kilometers=20).destination(scale_start, 90)  # 90° = dire�
 ax.plot([scale_start[1], scale_end.longitude], [scale_start[0], scale_end.latitude],
         color='black', linewidth=3, transform=ccrs.PlateCarree())
 
-ax.text((scale_start[1] + scale_end.longitude) / 2, scale_start[0] - 0.03,
+ax.text((scale_start[1] + scale_end.longitude) / 2, scale_start[0] - 0.07,
         "20 km", fontsize=10, color='black', ha='center', transform=ccrs.PlateCarree())
 
 # Adicionar horário no canto inferior direito
