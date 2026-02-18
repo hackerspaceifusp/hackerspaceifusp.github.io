@@ -218,7 +218,7 @@ if temp is not None:
     # Configurar limites para cada eixo Y em cada subplot
     axs[0].set_ylim(df['Dew Point'].min()-2, df['Temperature'].max()+2)
     #axs[1].set_ylim(max(df['Humidity'].min()-10, 0), 101)
-    axs[2].set_ylim(0, df['Rain'].max()+5)
+    axs[2].set_ylim(0, precip_diff.max()+5)
 
     # Salvar o gráfico em um arquivo
     plt.tight_layout()
