@@ -197,10 +197,11 @@ if temp is not None:
     for label in axs[1].get_yticklabels(): #Tamanho dos rótulos
         label.set_fontsize(14)
 
-    # Pressão
-    axs[2].plot(df['Timestamp'], df['Rain'], color='black', marker='o')
+    # Chuva
+    precip_diff = df['Rain'].diff().fillna(0).clip(lower=0)
+    axs[2].bar(df['Timestamp'], precip_diff, color='skyblue', label='Taxa de precipitação', width=0.02)
     axs[2].set_ylabel("Chuva (mm)",fontsize=14)
-    axs[2].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x:.0f}"))
+    axs[2].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x:.1f}"))
     axs[2].grid(True)
     for label in axs[2].get_yticklabels(): #Tamanho dos rótulos
         label.set_fontsize(14)
