@@ -47,15 +47,6 @@ def obter_dados_estacao():
             if match:
                 umidade = float(match.group(1))
 
-
-        # 4. Tentar encontrar a Velocidade do Vento
-        vento_velocidade = 'N/D'
-        vento_element = soup.find(lambda tag: tag.name == 'td' and "Velocidade:" in tag.text)
-        if vento_element:
-            match = re.search(r'Velocidade:\s*(\d+[,.]\d+)\s*(km/h|m/s)', vento_element.text.replace(",", "."))
-            if match:
-                velocidade = float(match.group(1))
-
         # Cálculo do Dew Point (apenas se tivermos temperatura e umidade)
         dew_point = None
         if temperatura is not None and umidade is not None:
@@ -63,11 +54,11 @@ def obter_dados_estacao():
             gamma = np.log(umidade/100) + (17.625 * temperatura) / (243.04 + temperatura)
             dew_point = (243.04 * gamma) / (17.625 - gamma)
 
-        return temperatura, dew_point, chuva_atual, umidade, velocidade, timestamp
+        return temperatura, dew_point, chuva_atual, umidade, timestamp
 
     except Exception as e:
         print(f"Erro ao processar dados da estação: {e}")
-        return None, None, None, None, None, timestamp
+        return None, None, None, None, timestamp
 
 
 
@@ -84,10 +75,10 @@ if os.path.exists(csv_file):
     df = df[df['Timestamp'] >= now - pd.Timedelta(hours=24)]
 else:
     # Criar um DataFrame vazio
-    df = pd.DataFrame(columns=['Timestamp', 'Temperature', 'Humidity', 'Rain', 'WindSpeed', 'Dew Point'])
+    df = pd.DataFrame(columns=['Timestamp', 'Temperature', 'Humidity', 'Rain', 'Dew Point'])
 
 # Obter os dados atuais
-temp, dew_point, rain, humidity, wind, timestamp = obter_dados_estacao()
+temp, dew_point, rain, humidity, timestamp = obter_dados_estacao()
 
 # Limites do eixo x: de timestamp - 25h até timestamp + 1h
 start_time = timestamp - timedelta(hours=25)
@@ -109,7 +100,6 @@ if temp is not None:
             'Temperature': [temp],
             'Humidity': [humidity],
             'Rain': [rain],
-            'WindSpeed': [wind],
             'Dew Point': [dew_point]
         })
 
@@ -291,10 +281,11 @@ else:
     for label in axs[1].get_yticklabels(): #Tamanho dos rótulos
         label.set_fontsize(14)
 
-    # Pressão
-    axs[2].plot(df['Timestamp'], df['Rain'], color='black', marker='o')
+    # Chuva
+    precip_diff = df['Rain'].diff().fillna(0).clip(lower=0)
+    axs[2].bar(df['Timestamp'], precip_diff, color='skyblue', label='Taxa de precipitação', width=0.02)
     axs[2].set_ylabel("Chuva (mm)",fontsize=14)
-    axs[2].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x:.0f}"))
+    axs[2].yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x:.1f}"))
     axs[2].grid(True)
     for label in axs[2].get_yticklabels(): #Tamanho dos rótulos
         label.set_fontsize(14)
