@@ -91,7 +91,7 @@ end_time = timestamp + timedelta(hours=1)
 
 
 
-if temp is not None:
+if temp is not None and rain is not None and humidity is not None:
     # Verificar se o timestamp já existe no DataFrame
     if timestamp not in df['Timestamp'].values:
         # Criar um DataFrame com o novo dado
