@@ -89,7 +89,12 @@ end_time = timestamp + timedelta(hours=1)
 
 
 
-
+if temp == 'N/D':
+    temp = np.nan
+if rain == 'N/D':
+    rain = np.nan
+if humidity == 'N/D':
+    humidity = np.nan
 
 if temp is not None and rain is not None and humidity is not None:
     # Verificar se o timestamp já existe no DataFrame
