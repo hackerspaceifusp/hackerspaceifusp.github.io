@@ -96,7 +96,7 @@ if rain == 'N/D':
 if humidity == 'N/D':
     humidity = np.nan
 
-if temp is not None and rain is not None and humidity is not None:
+if temp is not np.nan and rain is not np.nan and humidity is not np.nan:
     # Verificar se o timestamp já existe no DataFrame
     if timestamp not in df['Timestamp'].values:
         # Criar um DataFrame com o novo dado
