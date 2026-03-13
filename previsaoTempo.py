@@ -152,8 +152,8 @@ for i in range(len(dias)):
     if i < len(medias_pm25) and medias_pm25[i] is not None:
         valor = medias_pm25[i]
         termo, cor = get_aqi_br(valor)
-        ax2.text(i, ax2.get_ylim()[1] * -0.30, f"| {valor} - {termo} |", ha='center', va='center', 
-                 fontsize=11, fontweight='bold',
+        ax2.text(i, ax2.get_ylim()[1] * -0.30, f"| {valor}\n{termo} |", ha='center', va='center', 
+                 fontsize=14, fontweight='bold',
                  bbox=dict(facecolor='white', edgecolor=cor, boxstyle='round,pad=0.3', linewidth=2))
         
 # Defina o mesmo número de ticks para os dois eixos
