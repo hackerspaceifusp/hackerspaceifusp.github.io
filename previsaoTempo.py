@@ -146,7 +146,7 @@ for i, (bar, prob, vol) in enumerate(zip(bars, precip_prob, precip_volume)):
     ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=17, transform=ax2.transData)
 
 # --- CAIXAS DE QUALIDADE DO AR (DIRETRIZES BRASIL) ---
-ax2.text(-0.75, ax2.get_ylim()[1] * -0.30, 'PM2.5\n(μg/m³):', fontsize=12, fontweight='bold', color='black')
+ax2.text(-0.75, ax2.get_ylim()[1] * -0.30, 'PM2.5\n(μg/m³):', fontsize=12, fontweight='bold', color='black', ha='center', va='center')
 
 for i in range(len(dias)):
     if i < len(medias_pm25) and medias_pm25[i] is not None:
