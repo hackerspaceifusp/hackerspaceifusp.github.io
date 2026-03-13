@@ -146,7 +146,7 @@ for i, (bar, prob, vol) in enumerate(zip(bars, precip_prob, precip_volume)):
     ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=16, transform=ax2.transData)
 
 # --- CAIXAS DE QUALIDADE DO AR (DIRETRIZES BRASIL) ---
-ax2.text(-0.4, ax2.get_ylim()[1] * -0.36, 'PM2.5 (μg/m³):', fontsize=12, fontweight='bold', color='black')
+ax2.text(-0.55, ax2.get_ylim()[1] * -0.45, 'PM2.5 (μg/m³):', fontsize=12, fontweight='bold', color='black')
 
 for i in range(len(dias)):
     if i < len(medias_pm25) and medias_pm25[i] is not None:
@@ -190,9 +190,9 @@ for i, (dia, cond) in enumerate(zip(dias, narrativas)):
         img = Image.open(f'iconesPrevisao/{44}.png')
     img = img.resize((int(img.width * 0.5), int(img.height * 0.5)))
     if len(dias) == 6:
-        ax1.figure.figimage(img, 160 + i * 160, 130, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
+        ax1.figure.figimage(img, 160 + i * 160, 250, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
     elif len(dias) == 5:
-        ax1.figure.figimage(img, 160 + i * 160, 130, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
+        ax1.figure.figimage(img, 160 + i * 160, 250, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
     cond_wrapped = wrap_text(cond, width=12)
     ax2.text(i, ax2.get_ylim()[1] * -0.27, cond_wrapped, ha='center', va='center', fontsize=10, color='black', transform=ax2.transData)
 
