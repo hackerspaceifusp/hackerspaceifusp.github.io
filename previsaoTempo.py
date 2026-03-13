@@ -142,17 +142,17 @@ ax2.tick_params(axis='y', labelsize=18, labelcolor='blue')
 
 # Adicionando probabilidade e volume de chuva sobre cada barra
 for i, (bar, prob, vol) in enumerate(zip(bars, precip_prob, precip_volume)):
-    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.08, f'Prob: {prob} %', ha='center', color='blue', fontsize=11, transform=ax2.transData)
-    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=16, transform=ax2.transData)
+    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.08, f'Prob: {prob} %', ha='center', color='blue', fontsize=13, transform=ax2.transData)
+    ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=17, transform=ax2.transData)
 
 # --- CAIXAS DE QUALIDADE DO AR (DIRETRIZES BRASIL) ---
-ax2.text(-0.55, ax2.get_ylim()[1] * -0.45, 'PM2.5 (μg/m³):', fontsize=12, fontweight='bold', color='black')
+ax2.text(-1, ax2.get_ylim()[1] * -0.30, 'PM2.5 (μg/m³):', fontsize=12, fontweight='bold', color='black', rotation=90)
 
 for i in range(len(dias)):
     if i < len(medias_pm25) and medias_pm25[i] is not None:
         valor = medias_pm25[i]
         termo, cor = get_aqi_br(valor)
-        ax2.text(i, ax2.get_ylim()[1] * -0.42, f"| {valor} - {termo} |", ha='center', va='center', 
+        ax2.text(i, ax2.get_ylim()[1] * -0.30, f"| {valor} - {termo} |", ha='center', va='center', 
                  fontsize=11, fontweight='bold',
                  bbox=dict(facecolor='white', edgecolor=cor, boxstyle='round,pad=0.3', linewidth=2))
         
@@ -194,11 +194,11 @@ for i, (dia, cond) in enumerate(zip(dias, narrativas)):
     elif len(dias) == 5:
         ax1.figure.figimage(img, 160 + i * 160, 250, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
     cond_wrapped = wrap_text(cond, width=12)
-    ax2.text(i, ax2.get_ylim()[1] * -0.27, cond_wrapped, ha='center', va='center', fontsize=10, color='black', transform=ax2.transData)
+    ax2.text(i, ax2.get_ylim()[1] * -0.20, cond_wrapped, ha='center', va='center', fontsize=10, color='black', transform=ax2.transData)
 
 # Adicionando o texto "Fonte: Weather Channel" abaixo do gráfico
-plt.text(0.5, -0.48, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes) ##
-plt.text(0.5, -0.52, 'Fontes: Weather Channel e OpenMeteo', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes)
+plt.text(0.5, -0.40, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes) ##
+plt.text(0.5, -0.45, 'Fontes: Weather Channel e OpenMeteo', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes)
 
 #plt.legend(loc='best')
 plt.tight_layout()
