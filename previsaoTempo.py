@@ -15,6 +15,19 @@ import os
 def wrap_text(text, width=13):
     return '\n'.join(textwrap.wrap(text, width=width))
 
+# --- DIRETRIZES BRASIL (CONAMA) PARA PM2.5 ---
+def get_aqi_br(pm25):
+    if pm25 <= 15:
+        return "Boa", "#2ca02c"      # Verde
+    elif pm25 <= 50:
+        return "Moderada", "#ffff00" # Amarelo
+    elif pm25 <= 75:
+        return "Ruim", "#ff7f0e"     # Laranja
+    elif pm25 <= 125:
+        return "Muito Ruim", "#d62728" # Vermelho
+    else:
+        return "Péssima", "#800080"  # Roxo
+
 # Define os parâmetros da API
 WU_API_KEY = os.getenv('WU_API_KEY')
 
@@ -22,14 +35,14 @@ latitude = -23.56  # Latitude de São Paulo
 longitude = -46.73  # Longitude de São Paulo
 url = f"https://api.weather.com/v3/wx/forecast/daily/5day?geocode={latitude},{longitude}&format=json&units=m&language=pt&apiKey={WU_API_KEY}"
 
+# Formatação para exibir valores inteiros (0 casas decimais)
+formatter = FuncFormatter(lambda x, _: f'{int(x)}')
+
 # Obtendo o horário atual em HBR
 sao_paulo_tz = pytz.timezone("America/Sao_Paulo")
 current_time = datetime.now(sao_paulo_tz)
 
-# Formatação para exibir valores inteiros (0 casas decimais)
-formatter = FuncFormatter(lambda x, _: f'{int(x)}')
-
-# Faz a requisição para a API
+# Faz a requisição para a API do WU
 response = requests.get(url)
 if response.status_code == 200:
     # Extrai os dados JSON
@@ -37,6 +50,32 @@ if response.status_code == 200:
     #print(forecast_data)
 else:
     print(f"Erro na requisição: {response.status_code}")
+
+# Requisição Open-Meteo (Ajustado com timezone para SP)
+url_air = f"https://air-quality-api.open-meteo.com/v1/air-quality?latitude={latitude}&longitude={longitude}&hourly=pm2_5&timezone=America%2FSao_Paulo"
+air_data = requests.get(url_air).json()
+
+# Processamento de médias diárias de PM2.5
+pm25_hourly = air_data['hourly']['pm2_5']
+times_hourly = air_data['hourly']['time']
+pm25_diario = {}
+
+for t, val in zip(times_hourly, pm25_hourly):
+    data_str = t.split('T')[0]
+    if data_str not in pm25_diario:
+        pm25_diario[data_str] = []
+    pm25_diario[data_str].append(val)
+
+# Calcula médias conforme os dias retornados pela API de tempo
+datas_previsao = [datetime.fromtimestamp(ts, pytz.timezone("America/Sao_Paulo")).strftime('%Y-%m-%d') 
+                  for ts in forecast_data['validTimeUtc']]
+                  
+medias_pm25 = []
+for d in datas_previsao:
+    if d in pm25_diario:
+        medias_pm25.append(round(np.mean(pm25_diario[d])))
+    else:
+        medias_pm25.append(None)
 
 # Preparando os dados para o gráfico
 dias = forecast_data['dayOfWeek']
@@ -104,6 +143,21 @@ for i, (bar, prob, vol) in enumerate(zip(bars, precip_prob, precip_volume)):
     ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.08, f'Prob: {prob} %', ha='center', color='blue', fontsize=11, transform=ax2.transData)
     ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=16, transform=ax2.transData)
 
+# --- CAIXAS DE QUALIDADE DO AR (DIRETRIZES BRASIL) ---
+# Unidade fixa no canto
+ax1.text(-0.45, ax1.get_ylim()[1] * 1.05, 'PM2.5 (μg/m³)', fontsize=12, fontweight='bold', ha='left')
+
+for i in range(len(dias)):
+    if i < len(medias_pm25) and medias_pm25[i] is not None:
+        valor = medias_pm25[i]
+        termo, cor = get_aqi_br(valor)
+        texto_box = f"{valor} - {termo}"
+        
+        # Plotando a caixa no topo do gráfico
+        ax1.text(i, ax1.get_ylim()[1] * 1.01, texto_box, ha='center', va='bottom', 
+                 fontsize=11, color='black', fontweight='bold',
+                 bbox=dict(facecolor='white', edgecolor=cor, boxstyle='round,pad=0.4', linewidth=2))
+        
 # Defina o mesmo número de ticks para os dois eixos
 num_ticks = 6  # Pode ajustar conforme necessário
 ax1.yaxis.set_major_locator(MaxNLocator(num_ticks))
@@ -113,7 +167,7 @@ ax2.yaxis.set_major_locator(MaxNLocator(num_ticks))
 ax1.set_xticks(range(len(dias)))
 ax1.set_xticklabels(dias)
 ax1.set_ylabel('Temperatura (°C)',fontsize=20)
-ax1.set_title('Previsão do tempo para os próximos dias',fontsize=20)
+ax1.set_title('Previsão do tempo para os próximos dias',fontsize=22)
 ax1.grid(True, linestyle='--', alpha=0.5)
 ax1.yaxis.set_major_formatter(formatter)
 ax2.yaxis.set_major_formatter(formatter)
@@ -158,7 +212,7 @@ for i, (dia, cond) in enumerate(zip(dias, narrativas)):
 
 # Adicionando o texto "Fonte: Weather Channel" abaixo do gráfico
 plt.text(0.5, -0.36, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes) ##
-plt.text(0.5, -0.4, 'Fonte: Weather Channel', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes)
+plt.text(0.5, -0.4, 'Fontes: Weather Channel e OpenMeteo', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes)
 
 #plt.legend(loc='best')
 plt.tight_layout()
