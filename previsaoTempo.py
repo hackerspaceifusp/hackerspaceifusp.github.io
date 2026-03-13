@@ -64,7 +64,9 @@ for t, val in zip(times_hourly, pm25_hourly):
     data_str = t.split('T')[0]
     if data_str not in pm25_diario:
         pm25_diario[data_str] = []
-    pm25_diario[data_str].append(val)
+    # Filtro essencial para evitar o erro de NoneType
+    if val is not None:
+        pm25_diario[data_str].append(val)
 
 # Calcula médias conforme os dias retornados pela API de tempo
 datas_previsao = [datetime.fromtimestamp(ts, pytz.timezone("America/Sao_Paulo")).strftime('%Y-%m-%d') 
@@ -106,7 +108,7 @@ else: #Quando acontecer algo estranho e Amanhã estiver numa posição diferente
   icons = forecast_data['daypart'][0]['iconCode'][posicao_amanha::2]  # Filtra apenas os ícones diurnos
 
 
-fig, ax1 = plt.subplots(figsize=(12, 10))
+fig, ax1 = plt.subplots(figsize=(12, 12))
 
 # Plot das temperaturas
 ax1.plot(dias, temp_max, '-o', label='Temp máx', color='red')
@@ -144,19 +146,15 @@ for i, (bar, prob, vol) in enumerate(zip(bars, precip_prob, precip_volume)):
     ax2.text(bar.get_x() + bar.get_width() / 2, ax2.get_ylim()[1] * 0.03, f'{vol:.0f} mm', ha='center', color='blue', fontsize=16, transform=ax2.transData)
 
 # --- CAIXAS DE QUALIDADE DO AR (DIRETRIZES BRASIL) ---
-# Unidade fixa no canto
-ax1.text(-0.45, ax1.get_ylim()[1] * 1.05, 'PM2.5 (μg/m³)', fontsize=12, fontweight='bold', ha='left')
+ax2.text(-0.4, ax2.get_ylim()[1] * -0.36, 'PM2.5 (μg/m³):', fontsize=12, fontweight='bold', color='black')
 
 for i in range(len(dias)):
     if i < len(medias_pm25) and medias_pm25[i] is not None:
         valor = medias_pm25[i]
         termo, cor = get_aqi_br(valor)
-        texto_box = f"{valor} - {termo}"
-        
-        # Plotando a caixa no topo do gráfico
-        ax1.text(i, ax1.get_ylim()[1] * 1.01, texto_box, ha='center', va='bottom', 
-                 fontsize=11, color='black', fontweight='bold',
-                 bbox=dict(facecolor='white', edgecolor=cor, boxstyle='round,pad=0.4', linewidth=2))
+        ax2.text(i, ax2.get_ylim()[1] * -0.42, f"| {valor} - {termo} |", ha='center', va='center', 
+                 fontsize=11, fontweight='bold',
+                 bbox=dict(facecolor='white', edgecolor=cor, boxstyle='round,pad=0.3', linewidth=2))
         
 # Defina o mesmo número de ticks para os dois eixos
 num_ticks = 6  # Pode ajustar conforme necessário
@@ -185,34 +183,22 @@ ax1.legend(handles, labels, loc='best', fontsize=12)  # Escolha a posição dese
 
 # Adicionando os ícones e condições do tempo abaixo do gráfico
 for i, (dia, cond) in enumerate(zip(dias, narrativas)):
-    
     icone = icons[i]
-
-    # Ícone fictício, substitua pelo caminho dos seus ícones para condições meteorológicas
     try:
         img = Image.open(f'iconesPrevisao/{icone}.png')
     except:
         img = Image.open(f'iconesPrevisao/{44}.png')
-        
-    # Redimensione a imagem (exemplo: 50% do tamanho original)
     img = img.resize((int(img.width * 0.5), int(img.height * 0.5)))
-
-    #icon_path = f'iconesPrevisao/{icone}.png'
-
-    #img = mpimg.imread(icon_path)
     if len(dias) == 6:
         ax1.figure.figimage(img, 160 + i * 160, 130, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
     elif len(dias) == 5:
         ax1.figure.figimage(img, 160 + i * 160, 130, alpha=1.0, zorder=1)  # Ajuste a posição conforme necessário
-
-    # Texto da condição abaixo do ícone
-    # Aplica a quebra de linha à narrativa, sem quebrar palavras no meio
     cond_wrapped = wrap_text(cond, width=12)
     ax2.text(i, ax2.get_ylim()[1] * -0.27, cond_wrapped, ha='center', va='center', fontsize=10, color='black', transform=ax2.transData)
 
 # Adicionando o texto "Fonte: Weather Channel" abaixo do gráfico
-plt.text(0.5, -0.36, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes) ##
-plt.text(0.5, -0.4, 'Fontes: Weather Channel e OpenMeteo', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes)
+plt.text(0.5, -0.48, '* - A mínima desse dia acontecerá à noite', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes) ##
+plt.text(0.5, -0.52, 'Fontes: Weather Channel e OpenMeteo', ha='center', va='center', fontsize=14, color='black', transform=ax1.transAxes)
 
 #plt.legend(loc='best')
 plt.tight_layout()
