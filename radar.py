@@ -57,6 +57,7 @@ data = response.json()
 
 if "radar" in data and "past" in data["radar"]:
     latest_timestamp = data["radar"]["past"][-1]["time"]
+    path = data["radar"]["past"][-1]["path"]
 else:
     raise ValueError("Não foi possível obter o timestamp mais recente.")
 
@@ -66,7 +67,7 @@ brt_time = utc_time.replace(tzinfo=pytz.utc).astimezone(pytz.timezone("America/S
 timestamp_brasilia = brt_time.strftime("%d/%b/%Y - %H:%M")
 
 # Constrói a URL da imagem de radar
-radar_image_url = f"https://tilecache.rainviewer.com/v2/radar/{latest_timestamp}/{SIZE}/{ZOOM}/{LAT_CENTRO}/{LON_CENTRO}/{COLOR_SCHEME}/{OPTIONS}.png"
+radar_image_url = f"https://tilecache.rainviewer.com{path}/{SIZE}/{ZOOM}/{LAT_CENTRO}/{LON_CENTRO}/{COLOR_SCHEME}/{OPTIONS}.png"
 
 # Baixa a imagem de radar
 response = requests.get(radar_image_url)
