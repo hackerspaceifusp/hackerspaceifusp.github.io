@@ -14,7 +14,7 @@ brasilia_tz = pytz.timezone("America/Sao_Paulo")
 
 # Função para pegar os dados do Weather Underground
 def get_weather_data():
-    WU_API_KEY = os.getenv('API_KEY') # JAMAIS COMPARTILHAR ESSA API KEY
+    WU_API_KEY = os.getenv('WU_API_KEY') # JAMAIS COMPARTILHAR ESSA API KEY
     print(WU_API_KEY)
     STATION_ID = "ISOPAU334"
     url = f"https://api.weather.com/v2/pws/observations/current?stationId={STATION_ID}&format=json&units=m&numericPrecision=decimal&apiKey={WU_API_KEY}"
