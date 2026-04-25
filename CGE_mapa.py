@@ -57,7 +57,7 @@ def obter_dados_estacao(posto_id):
     url = f"https://www.cgesp.org/v3/estacao.jsp?POSTO={posto_id}"
 
     try:
-        response = requests.get(url, timeout=15)
+        response = requests.get(url, timeout=10)
         response.raise_for_status()
         soup = BeautifulSoup(response.content, 'html.parser')
 
@@ -84,28 +84,26 @@ def obter_dados_estacao(posto_id):
 
         return dados_tempo_real
 
-    except Exception as e:
+    except (requests.exceptions.RequestException, Exception) as e:
         print(f"Erro ao processar dados da estação: {e}")
-        return None
+        dados_tempo_real = {
+            "Temperatura": np.nan,
+            "Chuva_Atual": np.nan,
+        }
+        return dados_tempo_real
 
 dados_para_plotagem = []
 for nome, posto_id, lat, lon in estacoes_cge:
     dados_reais = obter_dados_estacao(posto_id)
     print(f" -> Coletando dados para {nome} (ID: {posto_id})... ---- Temperatura = {dados_reais['Temperatura']}")
 
-    if dados_reais:
-        dados_reais['Estacao'] = nome
-        dados_reais['Latitude'] = lat
-        dados_reais['Longitude'] = lon
-        dados_para_plotagem.append(dados_reais)
-    else:
-        dados_para_plotagem.append({
-            'Estacao': nome,
-            'Latitude': lat,
-            'Longitude': lon,
-            'Temperatura': np.nan,
-            'Chuva_Atual': np.nan
-        })
+    # Adiciona os dados coletados ou os NaNs retornados em caso de erro
+    dados_reais.update({
+        'Estacao': nome,
+        'Latitude': lat,
+        'Longitude': lon
+    })
+    dados_para_plotagem.append(dados_reais)
 
 df = pd.DataFrame(dados_para_plotagem)
 
@@ -145,17 +143,18 @@ fig, ax = plt.subplots(figsize=(10, 10))
 
 
 # 4. Desenhar o Scatter Plot (Temperatura)
-sc = gdf_plot.plot(
-    ax=ax,
-    column='Temperatura',
-    cmap=new_cmap,
-    vmin=-10,
-    vmax=45,
-    markersize=858,
-    alpha=0.8,
-    edgecolors='black',
-    legend=False
-)
+if not gdf_plot.empty:
+    sc = gdf_plot.plot(
+        ax=ax,
+        column='Temperatura',
+        cmap=new_cmap,
+        vmin=-10,
+        vmax=45,
+        markersize=858,
+        alpha=0.8,
+        edgecolors='black',
+        legend=False
+    )
 
 
 # 5. Adicionar o Fundo Geográfico (CartoDB Positron)
@@ -206,29 +205,29 @@ for index, row in gdf_plot.iterrows():
             zorder=12
         )
 
-        # --- 3. PLOTAGEM DO NOME DA ESTAÇÃO ---
-        if nome_estacao in estacoes_acima:
-            # Desloca o nome para longe da barra (e.g., para a esquerda)
-            x_pos = x
-            vertical_pos = y + deslocamento_nome
-            alinhamento_horizontal = 'right' # Alinha à direita do ponto
-            alinhamento_vertical = 'bottom'
-        else:
-            # Mantém à esquerda do ponto (longe da barra)
-            x_pos = x
-            vertical_pos = y - deslocamento_nome
-            alinhamento_horizontal = 'right'
-            alinhamento_vertical = 'top'
+    # --- 3. PLOTAGEM DO NOME DA ESTAÇÃO ---
+    if nome_estacao in estacoes_acima:
+        # Desloca o nome para longe da barra (e.g., para a esquerda)
+        x_pos = x
+        vertical_pos = y + deslocamento_nome
+        alinhamento_horizontal = 'right' # Alinha à direita do ponto
+        alinhamento_vertical = 'bottom'
+    else:
+        # Mantém à esquerda do ponto (longe da barra)
+        x_pos = x
+        vertical_pos = y - deslocamento_nome
+        alinhamento_horizontal = 'right'
+        alinhamento_vertical = 'top'
 
-        ax.annotate(
-            nome_estacao,
-            (x_pos, vertical_pos),
-            fontsize=10,
-            ha='center',
-            va=alinhamento_vertical,
-            color='black',
-            zorder=12
-        )
+    ax.annotate(
+        nome_estacao,
+        (x_pos, vertical_pos),
+        fontsize=10,
+        ha='center',
+        va=alinhamento_vertical,
+        color='black',
+        zorder=12
+    )
 
 
 # 9. ADICIONAR O HORÁRIO DE ATUALIZAÇÃO DOS DADOS (Mantido)
