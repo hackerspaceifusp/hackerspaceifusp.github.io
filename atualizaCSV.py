@@ -102,7 +102,7 @@ if temp is not None:
     # Definir o colormap baseado na temperatura
     c1 = plt.cm.Purples(np.linspace(0, 1, 50))
     c2 = plt.cm.turbo(np.linspace(0, 1, 176))
-    c3 = plt.cm.get_cmap('PuRd_r')(np.linspace(0, 1, 50))
+    c3 = plt.get_cmap('PuRd_r')(np.linspace(0, 1, 50))
     col = np.vstack((c1, c2, c3))
     cmap = plt.cm.colors.ListedColormap(col)
     cmap_hum = plt.cm.colors.ListedColormap(plt.cm.coolwarm(np.linspace(1, 0, 100)))
@@ -225,7 +225,7 @@ else:
     # Definir o colormap baseado na temperatura
     c1 = plt.cm.Purples(np.linspace(0, 1, 50))
     c2 = plt.cm.turbo(np.linspace(0, 1, 176))
-    c3 = plt.cm.get_cmap('PuRd_r')(np.linspace(0, 1, 50))
+    c3 = plt.get_cmap('PuRd_r')(np.linspace(0, 1, 50))
     col = np.vstack((c1, c2, c3))
     cmap = plt.cm.colors.ListedColormap(col)
     cmap_hum = plt.cm.colors.ListedColormap(plt.cm.coolwarm(np.linspace(1, 0, 100)))
