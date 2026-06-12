@@ -96,7 +96,7 @@ if dados.shape[0] > 1:
 # Definir o colormap baseado na temperatura
 c1 = plt.cm.Purples(np.linspace(0, 1, 50))
 c2 = plt.cm.turbo(np.linspace(0, 1, 176))
-c3 = plt.cm.get_cmap('PuRd_r')(np.linspace(0, 1, 50))
+c3 = plt.get_cmap('PuRd_r')(np.linspace(0, 1, 50))
 col = np.vstack((c1, c2, c3))
 custom_colormap = ListedColormap(col)
 
