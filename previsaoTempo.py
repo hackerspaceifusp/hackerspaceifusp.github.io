@@ -74,7 +74,8 @@ datas_previsao = [datetime.fromtimestamp(ts, pytz.timezone("America/Sao_Paulo"))
                   
 medias_pm25 = []
 for d in datas_previsao:
-    if d in pm25_diario:
+    # CORREÇÃO: Verifica se o dia está no dicionário E se a lista NÃO está vazia
+    if d in pm25_diario and len(pm25_diario[d]) > 0:
         medias_pm25.append(round(np.mean(pm25_diario[d])))
     else:
         medias_pm25.append(None)
