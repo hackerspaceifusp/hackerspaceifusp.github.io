@@ -160,7 +160,7 @@ if not gdf_plot.empty:
 # 5. Adicionar o Fundo Geográfico (CartoDB Positron)
 ctx.add_basemap(
     ax,
-    source=ctx.providers.CartoDB.Positron,
+    source=ctx.providers.Esri.WorldGrayCanvas,
     crs=gdf_web_mercator.crs
 )
 
