@@ -2,8 +2,8 @@ name: Previsao
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # 5h no UTC-3
-    - cron: '0 22 * * *'  # 19h no UTC-3
+    - cron: '0 5 * * *'  # 5h no UTC-3
+    - cron: '0 21 * * *'  # 19h no UTC-3
   workflow_dispatch:  # Permite execução manual
 
 permissions:
